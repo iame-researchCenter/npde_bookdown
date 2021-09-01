@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Tayloring options for graphs | npde: Open Source R normalised prediction distribution errors</title>
+  <meta name="description" content="User’s guide and documentation for npde package" />
+  <meta name="generator" content="bookdown 0.23.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Tayloring options for graphs | npde: Open Source R normalised prediction distribution errors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="User’s guide and documentation for npde package" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Tayloring options for graphs | npde: Open Source R normalised prediction distribution errors" />
+  
+  <meta name="twitter:description" content="User’s guide and documentation for npde package" />
+  
+
+<meta name="author" content="Emmanuelle Comets, Karl Brendel, Marc Cerou, Thi Huyen Tram Nguyen, Romain Leroux, France Mentré" />
+
+
+<meta name="date" content="2021-09-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="graphTypes0.html"/>
+<link rel="next" href="graphTypes.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">npde R Package Guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome to the npde package in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#user-guide"><i class="fa fa-check"></i>User Guide</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#legalese"><i class="fa fa-check"></i>Legalese</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#contents-of-the-bookdown"><i class="fa fa-check"></i><b>1.1</b> Contents of the bookdown</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#citing-npde"><i class="fa fa-check"></i><b>1.2</b> Citing npde</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#cran"><i class="fa fa-check"></i><b>2.1</b> <code>CRAN</code></a></li>
+<li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#github-build-from-source"><i class="fa fa-check"></i><b>2.2</b> <code>Github</code>: Build from source</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="statisticalMethods.html"><a href="statisticalMethods.html"><i class="fa fa-check"></i><b>3</b> Statistical methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#models-and-notations"><i class="fa fa-check"></i><b>3.1</b> Models and notations</a></li>
+<li class="chapter" data-level="3.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#computing-pde-and-npde"><i class="fa fa-check"></i><b>3.2</b> Computing pde and npde</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#prediction-discrepancies-pd"><i class="fa fa-check"></i><b>3.2.1</b> Prediction discrepancies (pd)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#smoothing-the-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Smoothing the distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="statisticalMethods.html"><a href="statisticalMethods.html#normalised-prediction-distribution-errors-npde"><i class="fa fa-check"></i><b>3.2.3</b> Normalised prediction distribution errors (npde)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="statisticalMethods.html"><a href="statisticalMethods.html#decorrelation"><i class="fa fa-check"></i><b>3.3</b> Decorrelating the data to obtain <span class="math inline">\(\mathrm{pde}\)</span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#decorrelation-methods"><i class="fa fa-check"></i><b>3.3.1</b> Decorrelation methods</a></li>
+<li class="chapter" data-level="3.3.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#choosing-a-decorrelation-method"><i class="fa fa-check"></i><b>3.3.2</b> Choosing a decorrelation method</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="statisticalMethods.html"><a href="statisticalMethods.html#censoring-methods"><i class="fa fa-check"></i><b>3.4</b> Censoring methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#choosing-the-method-to-handle-bql-data"><i class="fa fa-check"></i><b>3.4.1</b> Choosing the method to handle BQL data</a></li>
+<li class="chapter" data-level="3.4.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#imputation-of-bql-data-using-the-cumulative-distribution-function"><i class="fa fa-check"></i><b>3.4.2</b> Imputation of BQL data using the cumulative distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests"><i class="fa fa-check"></i><b>3.5</b> Tests</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests-on-the-distribution-of-npde"><i class="fa fa-check"></i><b>3.5.1</b> Tests on the distribution of npde</a></li>
+<li class="chapter" data-level="3.5.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests-for-covariate-models"><i class="fa fa-check"></i><b>3.5.2</b> Tests for covariate models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graphmethods.html"><a href="graphmethods.html"><i class="fa fa-check"></i><b>4</b> Diagnostic graphs</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="graphmethods.html"><a href="graphmethods.html#assessing-the-distribution-of-npde"><i class="fa fa-check"></i><b>4.1</b> Assessing the distribution of npde</a></li>
+<li class="chapter" data-level="4.2" data-path="graphmethods.html"><a href="graphmethods.html#vpc"><i class="fa fa-check"></i><b>4.2</b> VPC</a></li>
+<li class="chapter" data-level="4.3" data-path="graphmethods.html"><a href="graphmethods.html#probability-of-being-under-the-loq"><i class="fa fa-check"></i><b>4.3</b> Probability of being under the LOQ</a></li>
+<li class="chapter" data-level="4.4" data-path="graphmethods.html"><a href="graphmethods.html#graph-features"><i class="fa fa-check"></i><b>4.4</b> Graph features</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="graphmethods.html"><a href="graphmethods.html#stratification"><i class="fa fa-check"></i><b>4.4.1</b> Stratification</a></li>
+<li class="chapter" data-level="4.4.2" data-path="graphmethods.html"><a href="graphmethods.html#prediction-intervals"><i class="fa fa-check"></i><b>4.4.2</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="graphmethods.html"><a href="graphmethods.html#graphs-for-covariate-models"><i class="fa fa-check"></i><b>4.5</b> Graphs for covariate models</a></li>
+<li class="chapter" data-level="4.6" data-path="graphmethods.html"><a href="graphmethods.html#graphs-with-a-reference-profile"><i class="fa fa-check"></i><b>4.6</b> Graphs with a reference profile</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="graphmethods.html"><a href="graphmethods.html#non-parametric-construction-of-mathrmtnpde"><i class="fa fa-check"></i><b>4.6.1</b> Non-parametric construction of <span class="math inline">\(\mathrm{tnpde}\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="npdePackage.html"><a href="npdePackage.html"><i class="fa fa-check"></i><b>5</b> Using the npde package</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="npdePackage.html"><a href="npdePackage.html#theophylline-data"><i class="fa fa-check"></i><b>5.1</b> Theophylline data</a></li>
+<li class="chapter" data-level="5.2" data-path="npdePackage.html"><a href="npdePackage.html#preparation-of-the-input"><i class="fa fa-check"></i><b>5.2</b> Preparation of the input</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="npdePackage.html"><a href="npdePackage.html#observed-data"><i class="fa fa-check"></i><b>5.2.1</b> Observed data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="npdePackage.html"><a href="npdePackage.html#simulated-data"><i class="fa fa-check"></i><b>5.2.2</b> Simulated data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="npdePackage.html"><a href="npdePackage.html#number-of-simulations"><i class="fa fa-check"></i><b>5.2.3</b> Number of simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="npdePackage.html"><a href="npdePackage.html#execution"><i class="fa fa-check"></i><b>5.3</b> Execution</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="npdePackage.html"><a href="npdePackage.html#interactive-execution"><i class="fa fa-check"></i><b>5.3.1</b> Interactive execution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="npdePackage.html"><a href="npdePackage.html#non-interactive-execution"><i class="fa fa-check"></i><b>5.3.2</b> Non-interactive execution</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="npdePackage.html"><a href="npdePackage.html#results"><i class="fa fa-check"></i><b>5.4</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="npdePackage.html"><a href="npdePackage.html#value"><i class="fa fa-check"></i><b>5.4.1</b> Value</a></li>
+<li class="chapter" data-level="5.4.2" data-path="npdePackage.html"><a href="npdePackage.html#tests-1"><i class="fa fa-check"></i><b>5.4.2</b> Tests</a></li>
+<li class="chapter" data-level="5.4.3" data-path="npdePackage.html"><a href="npdePackage.html#default-graphs"><i class="fa fa-check"></i><b>5.4.3</b> Default graphs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i><b>6</b> Examples</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="examples.html"><a href="examples.html#load-the-libraries-and-the-npde-package"><i class="fa fa-check"></i><b>6.1</b> Load the libraries and the npde package</a></li>
+<li class="chapter" data-level="6.2" data-path="examples.html"><a href="examples.html#load-the-data-and-the-simulated-data"><i class="fa fa-check"></i><b>6.2</b> Load the data and the simulated data</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="examples.html"><a href="examples.html#warfarin-description-of-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Warfarin : description of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="examples.html"><a href="examples.html#compute-the-normalised-prediction-distribution-errors"><i class="fa fa-check"></i><b>6.3</b> Compute the normalised prediction distribution errors</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="examples.html"><a href="examples.html#description-of-the-output-wcov"><i class="fa fa-check"></i><b>6.3.1</b> Description of the output wcov</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="examples.html"><a href="examples.html#data"><i class="fa fa-check"></i><b>6.4</b> Data</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples.html"><a href="examples.html#plot-the-data-for-the-base-model"><i class="fa fa-check"></i><b>6.4.1</b> Plot the data for the base model</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples.html"><a href="examples.html#default-plot-for-the-base-model"><i class="fa fa-check"></i><b>6.4.2</b> Default plot for the base model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="examples.html"><a href="examples.html#covariate-model"><i class="fa fa-check"></i><b>6.5</b> Covariate model</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="examples.html"><a href="examples.html#default-plots"><i class="fa fa-check"></i><b>6.5.1</b> Default plots</a></li>
+<li class="chapter" data-level="6.5.2" data-path="examples.html"><a href="examples.html#scatterplots-of-npd"><i class="fa fa-check"></i><b>6.5.2</b> Scatterplots of npd</a></li>
+<li class="chapter" data-level="6.5.3" data-path="examples.html"><a href="examples.html#plot-npd-as-boxplots-for-each-covariate-category"><i class="fa fa-check"></i><b>6.5.3</b> Plot npd as boxplots for each covariate category</a></li>
+<li class="chapter" data-level="6.5.4" data-path="examples.html"><a href="examples.html#diagnostic-plots-for-covariates"><i class="fa fa-check"></i><b>6.5.4</b> Diagnostic plots for covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="examples.html"><a href="examples.html#reference-profile"><i class="fa fa-check"></i><b>6.6</b> Reference profile</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="examples.html"><a href="examples.html#reference-plot-using-one-subject"><i class="fa fa-check"></i><b>6.6.1</b> Reference plot using one subject</a></li>
+<li class="chapter" data-level="6.6.2" data-path="examples.html"><a href="examples.html#reference-plot-using-all-subjects"><i class="fa fa-check"></i><b>6.6.2</b> Reference plot using all subjects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="examples.html"><a href="examples.html#computing-npde-in-the-presence-of-bql-data"><i class="fa fa-check"></i><b>6.7</b> Computing npde in the presence of BQL data</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="examples.html"><a href="examples.html#data-1"><i class="fa fa-check"></i><b>6.7.1</b> Data</a></li>
+<li class="chapter" data-level="6.7.2" data-path="examples.html"><a href="examples.html#comparing-the-censoring-methods"><i class="fa fa-check"></i><b>6.7.2</b> Comparing the censoring methods</a></li>
+<li class="chapter" data-level="6.7.3" data-path="examples.html"><a href="examples.html#vpc-plots"><i class="fa fa-check"></i><b>6.7.3</b> VPC plots</a></li>
+<li class="chapter" data-level="6.7.4" data-path="examples.html"><a href="examples.html#scatterplots"><i class="fa fa-check"></i><b>6.7.4</b> Scatterplots</a></li>
+<li class="chapter" data-level="6.7.5" data-path="examples.html"><a href="examples.html#plot-for-mathbbpyloq"><i class="fa fa-check"></i><b>6.7.5</b> Plot for <span class="math inline">\(\mathbb{P}(Y&lt;LOQ)\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="graphTypes0.html"><a href="graphTypes0.html"><i class="fa fa-check"></i><b>7</b> Types of graphs in the npde library</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="graphTypes0.html"><a href="graphTypes0.html#plot-type"><i class="fa fa-check"></i><b>7.1</b> Plot type</a></li>
+<li class="chapter" data-level="7.2" data-path="graphTypes0.html"><a href="graphTypes0.html#specific-plot-functions"><i class="fa fa-check"></i><b>7.2</b> Specific plot functions</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="graphTypes0.html"><a href="graphTypes0.html#binning"><i class="fa fa-check"></i><b>7.2.1</b> Binning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="graphOptions.html"><a href="graphOptions.html"><i class="fa fa-check"></i><b>8</b> Tayloring options for graphs</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="graphOptions.html"><a href="graphOptions.html#setting-options-for-graphs"><i class="fa fa-check"></i><b>8.1</b> Setting options for graphs</a></li>
+<li class="chapter" data-level="8.2" data-path="graphOptions.html"><a href="graphOptions.html#layout-titles-and-axes"><i class="fa fa-check"></i><b>8.2</b> Layout, titles and axes</a></li>
+<li class="chapter" data-level="8.3" data-path="graphOptions.html"><a href="graphOptions.html#parameters-controlling-content."><i class="fa fa-check"></i><b>8.3</b> Parameters controlling content.</a></li>
+<li class="chapter" data-level="8.4" data-path="graphOptions.html"><a href="graphOptions.html#graphical-options-for-vpc-and-residual-plots."><i class="fa fa-check"></i><b>8.4</b> Graphical options for VPC and residual plots.</a></li>
+<li class="chapter" data-level="8.5" data-path="graphOptions.html"><a href="graphOptions.html#colours-transparency-line-types-and-symbols."><i class="fa fa-check"></i><b>8.5</b> Colours, transparency, line types and symbols.</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="graphTypes.html"><a href="graphTypes.html"><i class="fa fa-check"></i><b>9</b> Types of graphs in the npde library</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="graphTypes.html"><a href="graphTypes.html#plot-type-1"><i class="fa fa-check"></i><b>9.1</b> Plot type</a></li>
+<li class="chapter" data-level="9.2" data-path="graphTypes.html"><a href="graphTypes.html#specific-plot-functions-1"><i class="fa fa-check"></i><b>9.2</b> Specific plot functions</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="graphTypes.html"><a href="graphTypes.html#binning-1"><i class="fa fa-check"></i><b>9.2.1</b> Binning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="packageStructure.html"><a href="packageStructure.html"><i class="fa fa-check"></i><b>10</b> Structure of the npde package</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="packageStructure.html"><a href="packageStructure.html#online-help"><i class="fa fa-check"></i><b>10.0.1</b> Online help</a></li>
+<li class="chapter" data-level="10.1" data-path="packageStructure.html"><a href="packageStructure.html#errors-during-execution"><i class="fa fa-check"></i><b>10.1</b> Errors during execution</a></li>
+<li class="chapter" data-level="10.2" data-path="packageStructure.html"><a href="packageStructure.html#functions-in-the-npde-package"><i class="fa fa-check"></i><b>10.2</b> Functions in the <strong>npde</strong> package</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>11</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><strong>npde</strong>: Open Source R normalised prediction distribution errors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="graphOptions" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Tayloring options for graphs</h1>
+<div id="setting-options-for-graphs" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Setting options for graphs</h2>
+<p>An object <code>x</code> resulting from a call to <strong>npde()</strong> or <strong>autonpde()</strong> contains a slot <code>prefs</code> where the graphical preferences are stored as a list. Options can be set on the fly for a given plot, by simply adding them to the call to <strong>plot()</strong> as an argument (see examples in section {sec:npde.examples}), and they will then supersede the preferences attached to the object:</p>
+<pre><code>plot(x,plot.type=&quot;data&quot;,col=&quot;red&quot;,main=&quot;Raw data&quot;)</code></pre>
+<p>The options can also be modified directly in the object, and they will then apply to the next plots, for instance changing the new default color to red for all plots is done by setting the attribute <strong>col</strong> in the list:</p>
+<pre><code>x[&quot;prefs&quot;]$col&lt;-&quot;red&quot;</code></pre>
+<p>Options given on the fly will always supersede the options stored in the <code>prefs</code> slot.</p>
+<p>If further tweaking is required, any graph can also be recreated with a bit of work using the output from the package. Using the function <code>summary</code> will extract the necessary elements from the object, and the user can then use those to produce her or his own graphs.</p>
+<pre><code>x1&lt;-summary(x)
+names(x1)
+head(x1$x)
+head(x1$npde)</code></pre>
+</div>
+<div id="layout-titles-and-axes" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Layout, titles and axes</h2>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th align="right"><strong><span style="color: black">Argument</span></strong></th>
+<th></th>
+<th align="center"><strong><span style="color: black">Default value</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">verbose</td>
+<td>Output is produced for some plots (most notably when binning is used, this prints out the boundaries of the binning intervals) if TRUE</td>
+<td align="center">FALSE</td>
+</tr>
+<tr class="even">
+<td align="right">main</td>
+<td>Title</td>
+<td align="center">depends on plot</td>
+</tr>
+<tr class="odd">
+<td align="right">sub</td>
+<td>Subtitle</td>
+<td align="center">empty</td>
+</tr>
+<tr class="even">
+<td align="right">size.main</td>
+<td>Size of the main title</td>
+<td align="center">14</td>
+</tr>
+<tr class="odd">
+<td align="right">size.sub</td>
+<td>Size of the title for covariate</td>
+<td align="center">12</td>
+</tr>
+<tr class="even">
+<td align="right">xlab</td>
+<td>Label for the X-axis</td>
+<td align="center">depends on plot</td>
+</tr>
+<tr class="odd">
+<td align="right">ylab</td>
+<td>Label for the Y-axis</td>
+<td align="center">depends on plot</td>
+</tr>
+<tr class="even">
+<td align="right">size.xlab</td>
+<td>Size of the label for the X-axis</td>
+<td align="center">12</td>
+</tr>
+<tr class="odd">
+<td align="right">size.ylab</td>
+<td>Size of the label for the Y-axis</td>
+<td align="center">12</td>
+</tr>
+<tr class="even">
+<td align="right">breaks.x</td>
+<td>Number of tick marks on the X-axis</td>
+<td align="center">10</td>
+</tr>
+<tr class="odd">
+<td align="right">breaks.y</td>
+<td>Number of tick marks on the Y-axis</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="right">size.x.text</td>
+<td>Size of tick marks and tick labels on the X-axis</td>
+<td align="center">10</td>
+</tr>
+<tr class="odd">
+<td align="right">size.y.text</td>
+<td>Size of tick marks and tick labels on the Y-axis</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="right">xlim</td>
+<td>Range of values on the X-axis</td>
+<td align="center">empty, adjusts to the data</td>
+</tr>
+<tr class="odd">
+<td align="right">ylim</td>
+<td>Range of values on the Y-axis</td>
+<td align="center">empty, adjusts to the data</td>
+</tr>
+<tr class="even">
+<td align="right">xaxt</td>
+<td>A character whether to plot the X axis. Specifying "n" suppresses plotting of the axis</td>
+<td align="center">"y"</td>
+</tr>
+<tr class="odd">
+<td align="right">yaxt</td>
+<td>A character whether to plot the Y axis. Specifying "n" suppresses plotting of the axis</td>
+<td align="center">"y"</td>
+</tr>
+<tr class="even">
+<td align="right">xlog</td>
+<td>Scale for the X-axis (TRUE: logarithmic scale)</td>
+<td align="center">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="right">ylog</td>
+<td>Scale for the Y-axis (TRUE: logarithmic scale)</td>
+<td align="center">FALSE</td>
+</tr>
+<tr class="even">
+<td align="right">grid</td>
+<td>If TRUE, display a grid on the background of the plot</td>
+<td align="center">FALSE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="parameters-controlling-content." class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Parameters controlling content.</h2>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th align="right"><strong><span style="color: black">Argument</span></strong></th>
+<th></th>
+<th align="center"><strong><span style="color: black">Default value</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">plot.obs</td>
+<td>If TRUE, observations, pd/ndpe should are plotted on top of the prediction bands</td>
+<td align="center">TRUE</td>
+</tr>
+<tr class="even">
+<td align="right">plot.box</td>
+<td>If TRUE, boxplots are produced instead of scatterplots</td>
+<td align="center">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="right">covsplit</td>
+<td>If TRUE, plot are split by covariates</td>
+<td align="center">FALSE</td>
+</tr>
+<tr class="even">
+<td align="right">plot.loq</td>
+<td>If TRUE, data under the LOQ are plotted</td>
+<td align="center">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="right">line.loq</td>
+<td>If TRUE, horizontal line should is plotted at Y=LOQ in data and VPC plots</td>
+<td align="center">FALSE</td>
+</tr>
+<tr class="even">
+<td align="right">impute.loq</td>
+<td>If TRUE, the imputed values are plotted for data under the LOQ</td>
+<td align="center">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="graphical-options-for-vpc-and-residual-plots." class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Graphical options for VPC and residual plots.</h2>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th></th>
+<th align="left"><strong><span style="color: black">Default value</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>bands</td>
+<td>Whether prediction intervals should be plotted</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td>approx.pi</td>
+<td>If TRUE, samples from <span class="math inline">\(\mathcal{N}(0,1)\)</span> are used to plot prediction intervals, while if FALSE, prediction bands are obtained using pd/npde computed for the simulated data</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td>bin.method</td>
+<td>Method used to bin points (one of "equal", "width", "user" or "optimal"); at least the first two letters of the method need to be specified</td>
+<td align="left">"equal"</td>
+</tr>
+<tr class="even">
+<td>bin.number</td>
+<td>Number of binning intervals</td>
+<td align="left">10</td>
+</tr>
+<tr class="odd">
+<td>vpc.interval</td>
+<td>Size of interval</td>
+<td align="left">0.95</td>
+</tr>
+<tr class="even">
+<td>bin.breaks</td>
+<td>Vector of breaks used with user-defined breaks (vpc.method="user")</td>
+<td align="left">NULL</td>
+</tr>
+<tr class="odd">
+<td>bin.extreme</td>
+<td>Can be set to a vector of 2 values to fine-tune the behaviour of the binning algorithm at the boundaries; specifying c(0.01,0.99) with the "equal" binning method and vpc.bin=10 will create 2 extreme bands containing 1% of the data on the X-interval, then divide the region within the two bands into the remaining 8 intervals each containing the same number of data; in this case the intervals will all be equal except for the two extreme intervals, the size of which is fixed by the user; complete fine-tuning can be obtained by setting the breaks with the vpc.method="user"</td>
+<td align="left">NULL</td>
+</tr>
+<tr class="even">
+<td>pi.size</td>
+<td>Width of the prediction interval on the quantiles</td>
+<td align="left">0.95</td>
+</tr>
+<tr class="odd">
+<td>bin.lambda</td>
+<td>Value of lambda used to select the optimal number of bins through a penalised criterion</td>
+<td align="left">0.3</td>
+</tr>
+<tr class="even">
+<td>bin.beta</td>
+<td>Value of beta used to compute the variance-based criterion (Jopt,beta(I)) in the clustering algorithm</td>
+<td align="left">0.2</td>
+</tr>
+<tr class="odd">
+<td>bands.rep</td>
+<td>Number of simulated datasets used to compute prediction bands</td>
+<td align="left">200</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="colours-transparency-line-types-and-symbols." class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Colours, transparency, line types and symbols.</h2>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th align="right"><strong><span style="color: black">Argument</span></strong></th>
+<th></th>
+<th align="center"><strong><span style="color: black">Default value</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">col</td>
+<td>Main colour for observed data (applied to lines and symbols pertaining to observations if no other option is given to supersede this value)</td>
+<td align="center">"slategray4"</td>
+</tr>
+<tr class="even">
+<td align="right">lty</td>
+<td>Line type for observed data</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="right">lwd</td>
+<td>Line width for observed data</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="even">
+<td align="right">pch</td>
+<td>Symbol used to plot observed data</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="right">alpha</td>
+<td>Transparencyfor observed data</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="right">size</td>
+<td>Symbol size to plot observed data</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="right">fill</td>
+<td>Colour used to fill area elements related to observed data (such as histogram bars)</td>
+<td align="center">"white"</td>
+</tr>
+<tr class="even">
+<td align="right">type</td>
+<td>Type for the line for qqplot and scatter. Display line and points.</td>
+<td align="center">"b"</td>
+</tr>
+<tr class="odd">
+<td align="right">col.pobs</td>
+<td>Colour for observed data</td>
+<td align="center">"slategray4"</td>
+</tr>
+<tr class="even">
+<td align="right">pch.pobs</td>
+<td>Symbol used to plot observed data</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="right">size.pobs</td>
+<td>Symbol size to plot observed data</td>
+<td align="center">1.5</td>
+</tr>
+<tr class="even">
+<td align="right">alpha.pobs</td>
+<td>Transparency for observed data</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="right">col.lobs</td>
+<td>Colour for the line of observed data</td>
+<td align="center">"slategray4"</td>
+</tr>
+<tr class="even">
+<td align="right">lty.lobs</td>
+<td>Line type for the line of observed data</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="right">lwd.lobs</td>
+<td>Line width for the line of observed data</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="even">
+<td align="right">col.pcens</td>
+<td>Colour for the censored data</td>
+<td align="center">"steelblue3"</td>
+</tr>
+<tr class="odd">
+<td align="right">pch.pcens</td>
+<td>Symbol for the censored data</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="right">size.pcens</td>
+<td>Symbol size for the censored data</td>
+<td align="center">0.6</td>
+</tr>
+<tr class="odd">
+<td align="right">alpha.pcens</td>
+<td>Transparency for the censored data</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="right">col.line.loq</td>
+<td>Colour for the LOQ line</td>
+<td align="center">"black"</td>
+</tr>
+<tr class="odd">
+<td align="right">lty.line.loq</td>
+<td>Symbol type for the LOQ line</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="right">lwd.line.loq</td>
+<td>Symbol size for the LOQ line</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="odd">
+<td align="right">fill.outliers.med</td>
+<td>Color for the outliers of the median confidence interval</td>
+<td align="center">"red"</td>
+</tr>
+<tr class="even">
+<td align="right">fill.outliers.bands</td>
+<td>Color for the outliers of the bounds of the confidence interval</td>
+<td align="center">"red"</td>
+</tr>
+<tr class="odd">
+<td align="right">alpha.outliers.med</td>
+<td>Transparency of the color for the outliers of the median confidence interval</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="right">alpha.outliers.bands</td>
+<td>Transparency of the color for the outliers the bounds of the confidence interval</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="right">col.bands</td>
+<td>Colour for the lines of the bounds of the confidence interval</td>
+<td align="center">"white"</td>
+</tr>
+<tr class="even">
+<td align="right">lty.bands</td>
+<td>Type for the lines of bounds of the confidence interval</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="right">lwd.bands</td>
+<td>Width of the lines of bounds of the confidence interval</td>
+<td align="center">0.25</td>
+</tr>
+<tr class="even">
+<td align="right">alpha.bands</td>
+<td>Transparency of the bounds of the confidence interval</td>
+<td align="center">0.3</td>
+</tr>
+<tr class="odd">
+<td align="right">fill.bands</td>
+<td>Colour of the confidence interval</td>
+<td align="center">"steelblue2"</td>
+</tr>
+<tr class="even">
+<td align="right">col.med</td>
+<td>Colour for the lines of the median of the confidence interval</td>
+<td align="center">"white"</td>
+</tr>
+<tr class="odd">
+<td align="right">lty.med</td>
+<td>Type for the lines of the median of the confidence interval</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="right">lwd.med</td>
+<td>Width of the lines of the median of the confidence interva</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="odd">
+<td align="right">alpha.med</td>
+<td>Transparency of the median confidence interval</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="even">
+<td align="right">fill.med</td>
+<td>Colour of the median confidence interval</td>
+<td align="center">"pink"</td>
+</tr>
+<tr class="odd">
+<td align="right">col.ther</td>
+<td>Colour for the lines for model-derived percentiles</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="right">lty.ther</td>
+<td>Type for the lines for model-derived percentiles</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="right">lwd.ther</td>
+<td>Width of the lines for model-derived percentiles</td>
+<td align="center">0.5</td>
+</tr>
+<tr class="even">
+<td align="right">alpha.ther</td>
+<td>Transparency of the lines for model-derived percentiles</td>
+<td align="center">0.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="graphTypes0.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="graphTypes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["npde_bookdown.pdf", "npde_bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

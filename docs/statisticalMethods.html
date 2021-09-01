@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Statistical methods | npde: Open Source R normalised prediction distribution errors</title>
+  <meta name="description" content="User’s guide and documentation for npde package" />
+  <meta name="generator" content="bookdown 0.23.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Statistical methods | npde: Open Source R normalised prediction distribution errors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="User’s guide and documentation for npde package" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Statistical methods | npde: Open Source R normalised prediction distribution errors" />
+  
+  <meta name="twitter:description" content="User’s guide and documentation for npde package" />
+  
+
+<meta name="author" content="Emmanuelle Comets, Karl Brendel, Marc Cerou, Thi Huyen Tram Nguyen, Romain Leroux, France Mentré" />
+
+
+<meta name="date" content="2021-09-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="installation.html"/>
+<link rel="next" href="graphmethods.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">npde R Package Guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome to the npde package in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#user-guide"><i class="fa fa-check"></i>User Guide</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#legalese"><i class="fa fa-check"></i>Legalese</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#contents-of-the-bookdown"><i class="fa fa-check"></i><b>1.1</b> Contents of the bookdown</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#citing-npde"><i class="fa fa-check"></i><b>1.2</b> Citing npde</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#cran"><i class="fa fa-check"></i><b>2.1</b> <code>CRAN</code></a></li>
+<li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#github-build-from-source"><i class="fa fa-check"></i><b>2.2</b> <code>Github</code>: Build from source</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="statisticalMethods.html"><a href="statisticalMethods.html"><i class="fa fa-check"></i><b>3</b> Statistical methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#models-and-notations"><i class="fa fa-check"></i><b>3.1</b> Models and notations</a></li>
+<li class="chapter" data-level="3.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#computing-pde-and-npde"><i class="fa fa-check"></i><b>3.2</b> Computing pde and npde</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#prediction-discrepancies-pd"><i class="fa fa-check"></i><b>3.2.1</b> Prediction discrepancies (pd)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#smoothing-the-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Smoothing the distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="statisticalMethods.html"><a href="statisticalMethods.html#normalised-prediction-distribution-errors-npde"><i class="fa fa-check"></i><b>3.2.3</b> Normalised prediction distribution errors (npde)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="statisticalMethods.html"><a href="statisticalMethods.html#decorrelation"><i class="fa fa-check"></i><b>3.3</b> Decorrelating the data to obtain <span class="math inline">\(\mathrm{pde}\)</span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#decorrelation-methods"><i class="fa fa-check"></i><b>3.3.1</b> Decorrelation methods</a></li>
+<li class="chapter" data-level="3.3.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#choosing-a-decorrelation-method"><i class="fa fa-check"></i><b>3.3.2</b> Choosing a decorrelation method</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="statisticalMethods.html"><a href="statisticalMethods.html#censoring-methods"><i class="fa fa-check"></i><b>3.4</b> Censoring methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#choosing-the-method-to-handle-bql-data"><i class="fa fa-check"></i><b>3.4.1</b> Choosing the method to handle BQL data</a></li>
+<li class="chapter" data-level="3.4.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#imputation-of-bql-data-using-the-cumulative-distribution-function"><i class="fa fa-check"></i><b>3.4.2</b> Imputation of BQL data using the cumulative distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests"><i class="fa fa-check"></i><b>3.5</b> Tests</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests-on-the-distribution-of-npde"><i class="fa fa-check"></i><b>3.5.1</b> Tests on the distribution of npde</a></li>
+<li class="chapter" data-level="3.5.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests-for-covariate-models"><i class="fa fa-check"></i><b>3.5.2</b> Tests for covariate models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graphmethods.html"><a href="graphmethods.html"><i class="fa fa-check"></i><b>4</b> Diagnostic graphs</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="graphmethods.html"><a href="graphmethods.html#assessing-the-distribution-of-npde"><i class="fa fa-check"></i><b>4.1</b> Assessing the distribution of npde</a></li>
+<li class="chapter" data-level="4.2" data-path="graphmethods.html"><a href="graphmethods.html#vpc"><i class="fa fa-check"></i><b>4.2</b> VPC</a></li>
+<li class="chapter" data-level="4.3" data-path="graphmethods.html"><a href="graphmethods.html#probability-of-being-under-the-loq"><i class="fa fa-check"></i><b>4.3</b> Probability of being under the LOQ</a></li>
+<li class="chapter" data-level="4.4" data-path="graphmethods.html"><a href="graphmethods.html#graph-features"><i class="fa fa-check"></i><b>4.4</b> Graph features</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="graphmethods.html"><a href="graphmethods.html#stratification"><i class="fa fa-check"></i><b>4.4.1</b> Stratification</a></li>
+<li class="chapter" data-level="4.4.2" data-path="graphmethods.html"><a href="graphmethods.html#prediction-intervals"><i class="fa fa-check"></i><b>4.4.2</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="graphmethods.html"><a href="graphmethods.html#graphs-for-covariate-models"><i class="fa fa-check"></i><b>4.5</b> Graphs for covariate models</a></li>
+<li class="chapter" data-level="4.6" data-path="graphmethods.html"><a href="graphmethods.html#graphs-with-a-reference-profile"><i class="fa fa-check"></i><b>4.6</b> Graphs with a reference profile</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="graphmethods.html"><a href="graphmethods.html#non-parametric-construction-of-mathrmtnpde"><i class="fa fa-check"></i><b>4.6.1</b> Non-parametric construction of <span class="math inline">\(\mathrm{tnpde}\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="npdePackage.html"><a href="npdePackage.html"><i class="fa fa-check"></i><b>5</b> Using the npde package</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="npdePackage.html"><a href="npdePackage.html#theophylline-data"><i class="fa fa-check"></i><b>5.1</b> Theophylline data</a></li>
+<li class="chapter" data-level="5.2" data-path="npdePackage.html"><a href="npdePackage.html#preparation-of-the-input"><i class="fa fa-check"></i><b>5.2</b> Preparation of the input</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="npdePackage.html"><a href="npdePackage.html#observed-data"><i class="fa fa-check"></i><b>5.2.1</b> Observed data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="npdePackage.html"><a href="npdePackage.html#simulated-data"><i class="fa fa-check"></i><b>5.2.2</b> Simulated data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="npdePackage.html"><a href="npdePackage.html#number-of-simulations"><i class="fa fa-check"></i><b>5.2.3</b> Number of simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="npdePackage.html"><a href="npdePackage.html#execution"><i class="fa fa-check"></i><b>5.3</b> Execution</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="npdePackage.html"><a href="npdePackage.html#interactive-execution"><i class="fa fa-check"></i><b>5.3.1</b> Interactive execution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="npdePackage.html"><a href="npdePackage.html#non-interactive-execution"><i class="fa fa-check"></i><b>5.3.2</b> Non-interactive execution</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="npdePackage.html"><a href="npdePackage.html#results"><i class="fa fa-check"></i><b>5.4</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="npdePackage.html"><a href="npdePackage.html#value"><i class="fa fa-check"></i><b>5.4.1</b> Value</a></li>
+<li class="chapter" data-level="5.4.2" data-path="npdePackage.html"><a href="npdePackage.html#tests-1"><i class="fa fa-check"></i><b>5.4.2</b> Tests</a></li>
+<li class="chapter" data-level="5.4.3" data-path="npdePackage.html"><a href="npdePackage.html#default-graphs"><i class="fa fa-check"></i><b>5.4.3</b> Default graphs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i><b>6</b> Examples</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="examples.html"><a href="examples.html#load-the-libraries-and-the-npde-package"><i class="fa fa-check"></i><b>6.1</b> Load the libraries and the npde package</a></li>
+<li class="chapter" data-level="6.2" data-path="examples.html"><a href="examples.html#load-the-data-and-the-simulated-data"><i class="fa fa-check"></i><b>6.2</b> Load the data and the simulated data</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="examples.html"><a href="examples.html#warfarin-description-of-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Warfarin : description of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="examples.html"><a href="examples.html#compute-the-normalised-prediction-distribution-errors"><i class="fa fa-check"></i><b>6.3</b> Compute the normalised prediction distribution errors</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="examples.html"><a href="examples.html#description-of-the-output-wcov"><i class="fa fa-check"></i><b>6.3.1</b> Description of the output wcov</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="examples.html"><a href="examples.html#data"><i class="fa fa-check"></i><b>6.4</b> Data</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples.html"><a href="examples.html#plot-the-data-for-the-base-model"><i class="fa fa-check"></i><b>6.4.1</b> Plot the data for the base model</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples.html"><a href="examples.html#default-plot-for-the-base-model"><i class="fa fa-check"></i><b>6.4.2</b> Default plot for the base model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="examples.html"><a href="examples.html#covariate-model"><i class="fa fa-check"></i><b>6.5</b> Covariate model</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="examples.html"><a href="examples.html#default-plots"><i class="fa fa-check"></i><b>6.5.1</b> Default plots</a></li>
+<li class="chapter" data-level="6.5.2" data-path="examples.html"><a href="examples.html#scatterplots-of-npd"><i class="fa fa-check"></i><b>6.5.2</b> Scatterplots of npd</a></li>
+<li class="chapter" data-level="6.5.3" data-path="examples.html"><a href="examples.html#plot-npd-as-boxplots-for-each-covariate-category"><i class="fa fa-check"></i><b>6.5.3</b> Plot npd as boxplots for each covariate category</a></li>
+<li class="chapter" data-level="6.5.4" data-path="examples.html"><a href="examples.html#diagnostic-plots-for-covariates"><i class="fa fa-check"></i><b>6.5.4</b> Diagnostic plots for covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="examples.html"><a href="examples.html#reference-profile"><i class="fa fa-check"></i><b>6.6</b> Reference profile</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="examples.html"><a href="examples.html#reference-plot-using-one-subject"><i class="fa fa-check"></i><b>6.6.1</b> Reference plot using one subject</a></li>
+<li class="chapter" data-level="6.6.2" data-path="examples.html"><a href="examples.html#reference-plot-using-all-subjects"><i class="fa fa-check"></i><b>6.6.2</b> Reference plot using all subjects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="examples.html"><a href="examples.html#computing-npde-in-the-presence-of-bql-data"><i class="fa fa-check"></i><b>6.7</b> Computing npde in the presence of BQL data</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="examples.html"><a href="examples.html#data-1"><i class="fa fa-check"></i><b>6.7.1</b> Data</a></li>
+<li class="chapter" data-level="6.7.2" data-path="examples.html"><a href="examples.html#comparing-the-censoring-methods"><i class="fa fa-check"></i><b>6.7.2</b> Comparing the censoring methods</a></li>
+<li class="chapter" data-level="6.7.3" data-path="examples.html"><a href="examples.html#vpc-plots"><i class="fa fa-check"></i><b>6.7.3</b> VPC plots</a></li>
+<li class="chapter" data-level="6.7.4" data-path="examples.html"><a href="examples.html#scatterplots"><i class="fa fa-check"></i><b>6.7.4</b> Scatterplots</a></li>
+<li class="chapter" data-level="6.7.5" data-path="examples.html"><a href="examples.html#plot-for-mathbbpyloq"><i class="fa fa-check"></i><b>6.7.5</b> Plot for <span class="math inline">\(\mathbb{P}(Y&lt;LOQ)\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="graphTypes0.html"><a href="graphTypes0.html"><i class="fa fa-check"></i><b>7</b> Types of graphs in the npde library</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="graphTypes0.html"><a href="graphTypes0.html#plot-type"><i class="fa fa-check"></i><b>7.1</b> Plot type</a></li>
+<li class="chapter" data-level="7.2" data-path="graphTypes0.html"><a href="graphTypes0.html#specific-plot-functions"><i class="fa fa-check"></i><b>7.2</b> Specific plot functions</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="graphTypes0.html"><a href="graphTypes0.html#binning"><i class="fa fa-check"></i><b>7.2.1</b> Binning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="graphOptions.html"><a href="graphOptions.html"><i class="fa fa-check"></i><b>8</b> Tayloring options for graphs</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="graphOptions.html"><a href="graphOptions.html#setting-options-for-graphs"><i class="fa fa-check"></i><b>8.1</b> Setting options for graphs</a></li>
+<li class="chapter" data-level="8.2" data-path="graphOptions.html"><a href="graphOptions.html#layout-titles-and-axes"><i class="fa fa-check"></i><b>8.2</b> Layout, titles and axes</a></li>
+<li class="chapter" data-level="8.3" data-path="graphOptions.html"><a href="graphOptions.html#parameters-controlling-content."><i class="fa fa-check"></i><b>8.3</b> Parameters controlling content.</a></li>
+<li class="chapter" data-level="8.4" data-path="graphOptions.html"><a href="graphOptions.html#graphical-options-for-vpc-and-residual-plots."><i class="fa fa-check"></i><b>8.4</b> Graphical options for VPC and residual plots.</a></li>
+<li class="chapter" data-level="8.5" data-path="graphOptions.html"><a href="graphOptions.html#colours-transparency-line-types-and-symbols."><i class="fa fa-check"></i><b>8.5</b> Colours, transparency, line types and symbols.</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="graphTypes.html"><a href="graphTypes.html"><i class="fa fa-check"></i><b>9</b> Types of graphs in the npde library</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="graphTypes.html"><a href="graphTypes.html#plot-type-1"><i class="fa fa-check"></i><b>9.1</b> Plot type</a></li>
+<li class="chapter" data-level="9.2" data-path="graphTypes.html"><a href="graphTypes.html#specific-plot-functions-1"><i class="fa fa-check"></i><b>9.2</b> Specific plot functions</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="graphTypes.html"><a href="graphTypes.html#binning-1"><i class="fa fa-check"></i><b>9.2.1</b> Binning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="packageStructure.html"><a href="packageStructure.html"><i class="fa fa-check"></i><b>10</b> Structure of the npde package</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="packageStructure.html"><a href="packageStructure.html#online-help"><i class="fa fa-check"></i><b>10.0.1</b> Online help</a></li>
+<li class="chapter" data-level="10.1" data-path="packageStructure.html"><a href="packageStructure.html#errors-during-execution"><i class="fa fa-check"></i><b>10.1</b> Errors during execution</a></li>
+<li class="chapter" data-level="10.2" data-path="packageStructure.html"><a href="packageStructure.html#functions-in-the-npde-package"><i class="fa fa-check"></i><b>10.2</b> Functions in the <strong>npde</strong> package</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>11</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><strong>npde</strong>: Open Source R normalised prediction distribution errors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statisticalMethods" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Statistical methods</h1>
+<!-- ########################################################################################################## -->
+<div id="models-and-notations" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Models and notations</h2>
+<!-- ########################################################################################################## -->
+<p>Let <span class="math inline">\(i\)</span> denote the i<span class="math inline">\(^{\rm th}\)</span> individual (<span class="math inline">\(i\)</span> = 1,<span class="math inline">\(\dots\)</span>, N) and <span class="math inline">\(j\)</span> the j<span class="math inline">\(^{\rm th}\)</span> measurement in an individual (<span class="math inline">\(j\)</span> = 1,<span class="math inline">\(\dots\)</span>, n<span class="math inline">\(_i\)</span>, where n<span class="math inline">\(_i\)</span> is the number of observations for subject <span class="math inline">\(i\)</span>). Let <span class="math inline">\(\mathrm{Y}_i\)</span>=<span class="math inline">\(\{y_{i_1},\dots,y_{i_{n_i}} \}\)</span> be the n<span class="math inline">\(_i\)</span>-vector of observations observed in individual <span class="math inline">\(i\)</span>. Let the function <span class="math inline">\(f\)</span> denote the nonlinear structural model. <span class="math inline">\(f\)</span> can represent for instance the pharmacokinetic model. The statistical model for the observation <span class="math inline">\(y_{ij}\)</span> in patient <span class="math inline">\(i\)</span> at time <span class="math inline">\(t_{ij}\)</span>, is given by:</p>
+<p><span class="math display">\[\begin{equation}
+y_{ij}=f(t_{ij},\theta_i)+\varepsilon_{ij}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\theta_i\)</span> is the p-vector of the individual parameters and <span class="math inline">\(\epsilon_{ij}\)</span> is the residual error, which is assumed to be normal, with zero mean. The variance of <span class="math inline">\(\varepsilon_{ij}\)</span> may depend on the predicted concentrations <span class="math inline">\(f(t_{ij},\theta_i)\)</span> through a (known) variance model. Let <span class="math inline">\(\sigma\)</span> denote the vector of unknown parameters of this variance model.</p>
+<p>In pharmacokinetic (PK) <span class="math inline">\(\normalsize{/}\)</span> pharmacodynamic (PD) studies for instance, it is usually assumed that the variance of the error follows a combined error model:</p>
+<p><span class="math display" id="eq:errormod">\[\begin{equation}
+\mathrm{Var}(\varepsilon_{ij})= (\sigma_{\rm inter} + \sigma_{\rm slope} f(t_{ij},\theta_i))^2 \tag{3.1}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\sigma_{\rm inter}\)</span> and <span class="math inline">\(\sigma_{\rm slope}\)</span> are two parameters characterising the variance. In this case, <span class="math inline">\(\sigma=(\sigma_{\rm inter},\sigma_{\rm slope})\)</span>. This combined variance model covers the case of an homoscedastic variance error model, where <span class="math inline">\(\sigma_{\rm slope}=0\)</span>, and the case of a constant coefficient of variation error model when <span class="math inline">\(\sigma_{\rm inter}=0\)</span>. Another parametrisation often found is:</p>
+<p><span class="math display">\[\begin{equation}
+\mathrm{Var}(\varepsilon_{ij})= \sigma_{\rm inter}^2 + \sigma_{\rm slope}^2 \;
+f(t_{ij},\theta_i)^2
+\end{equation}\]</span></p>
+<p>Another usual assumption in population PK/PD analyses is that the distribution of the individual parameters <span class="math inline">\(\theta_i\)</span> has a known shape, for instance the normal, log-normal or logit distribution. Following the model structure laid out in the <a href="http://wiki.webpopix.org/index.php/What_is_a_model%3F_A_joint_probability_distribution!" class="uri">http://wiki.webpopix.org/index.php/What_is_a_model%3F_A_joint_probability_distribution!</a>, we will assume a transformation <span class="math inline">\(h\)</span> can be used to transform a linear function of the fixed effects <span class="math inline">\(\mu\)</span>, the vector of covariates <span class="math inline">\(\mathrm{X}_i\)</span> and the random effects <span class="math inline">\(\eta_i\)</span>, into the vector of individual parameters for individual <span class="math inline">\(i\)</span>, <span class="math inline">\(\theta_i\)</span>:
+<span class="math display" id="eq:modelPKcov">\[\begin{equation}
+\theta_i=h(\mu, X_i \eta_i) \tag{3.2}
+\end{equation}\]</span>
+where the <span class="math inline">\(\eta_i\)</span> are assumed to follow a normal distribution <span class="math inline">\(\mathcal{N} (0, \Omega)\)</span>, with <span class="math inline">\(\Omega\)</span> the variance-covariance matrix of the random effect. Other parametric or non-parametric assumptions can be used for the distribution of the random effects, as in the first paper using this method, in the context of non-parametric estimation <span class="citation">(<a href="#ref-Mesnil98" role="doc-biblioref">Florence et al. 1998</a>)</span>. Although npde were developed in the context of pharmacokinetic and pharmacodynamic analyses, it is a general approach that can be used to evaluate mixed effect models. The key assumption is to be able to simulate from the expected model, and the npde are designed to test whether simulations and observations correspond.</p>
+<p>We denote <span class="math inline">\({\rm \Psi}\)</span> the vector of population parameters (also called hyperparameters) estimated using the data in a learning dataset B: <span class="math inline">\({\rm \Psi}= (\mu, \Omega,\sigma)^{\top}\)</span>. We call M<span class="math inline">\(^B\)</span> the model defined by its structure (function <span class="math inline">\(f\)</span>, distributions <span class="math inline">\(h\)</span>, and variance model) and by the hyperparameters <span class="math inline">\(\widehat{\rm \Psi}^B\)</span> estimated from the learning dataset B.</p>
+<!-- ########################################################################################################## -->
+</div>
+<div id="computing-pde-and-npde" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Computing pde and npde</h2>
+<!-- ########################################################################################################## -->
+<p>Let V a validation dataset. Evaluation methods compare the predictions obtained by M<span class="math inline">\(^B\)</span>, using the design of V, to the observations in V. V can be the learning dataset B (internal validation) or a different dataset (external validation). The null hypothesis (H<span class="math inline">\(_0\)</span>) is that data in the validation dataset V can be described by model M<span class="math inline">\(^B\)</span>. Prediction discrepancies and prediction distribution errors are metrics designed to test this assumption.</p>
+<!-- ########################################################################################################## -->
+<div id="prediction-discrepancies-pd" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Prediction discrepancies (pd)</h3>
+<!-- ########################################################################################################## -->
+<p>Let p<span class="math inline">\(_{i}(y|\Psi)\)</span> be the whole marginal posterior predictive distribution of an observation <span class="math inline">\(y\)</span> for the individual  predicted by the tested model. p<span class="math inline">\(_i\)</span> is defined as:
+<span class="math display">\[p_{i}(y|\Psi)=\int p(y|\theta_{i},\Psi) p(\theta_{i}|\Psi)d\theta_{i}\]</span></p>
+<p>Let <span class="math inline">\(F_{ij}\)</span> denote the cumulative distribution function (cdf) of the predictive distribution p<span class="math inline">\(_{i}(y|\Psi)\)</span>. The prediction discrepancy for an observation is defined as the corresponding value of the cdf, as given by:</p>
+<p><span class="math display">\[\mathrm{pd}_{ij}=F_{ij}(y_{ij})=\int^{y_{ij}} p_{i}(y|\Psi)dy=\int^{y_{ij}}\int p(y|\theta_{i},\Psi)p(\theta_{i}|\Psi)d\theta_{i}dy\]</span></p>
+<p>In NLMEM, <span class="math inline">\(F_{ij}\)</span> has no analytical expression and can be approximated by simulations. Using the design of the validation dataset V, we simulate <span class="math inline">\(K\)</span> datasets <span class="math inline">\(\mathrm{V}^{sim(k)}\)</span> (<span class="math inline">\(k\)</span>=1,<span class="math inline">\(\dots\)</span>,K) under model M<span class="math inline">\(^B\)</span>. Let <span class="math inline">\(\mathrm{Y}_i^{sim(k)}\)</span> denote the vector of simulated observations for the <span class="math inline">\(i^{\rm th}\)</span> subject in the <span class="math inline">\(k^{\rm th}\)</span> simulation.</p>
+<p>The prediction discrepancy <span class="math inline">\(\mathrm{pd}_{ij}\)</span> for observation <span class="math inline">\(y_{ij}\)</span> can then be computed from the cdf <span class="math inline">\(F_{ij}\)</span>, as:
+<span class="math display" id="eq:pdedef">\[\begin{equation}
+\mathrm{pd}_{ij} = F_{ij}(y_{ij}) \approx \frac{1}{K}{\displaystyle{\sum_{k=1}^{K}}\mathbb{1}_{  \Big\{y_{ij}^{sim(k)}&lt;y_{ij}  \Big\}}} \tag{3.3}
+\end{equation}\]</span></p>
+<p>To handle extreme values of the observations (defined as values smaller or larger than all the simulated values y<span class="math inline">\(_{ij}^{sim(k)}\)</span>), we further set:
+<span class="math display">\[\begin{equation*}
+\mathrm{pd}_{ij} = \left\{ \begin{array}{l r}
+            \frac{1}{2K} &amp; \text{if } y_{ij} \leq y_{ij}^{sim(k)} \; \forall \; k=1,\ldots,K \\
+            1-\frac{1}{2K} &amp; \text{if } y_{ij} &gt; y_{ij}^{sim(k)} \; \forall \; k=1,\ldots,K \\
+           \end{array}
+\right.
+\end{equation*}\]</span>
+Under H<span class="math inline">\(_0\)</span>, if <span class="math inline">\(K\)</span> is large enough, prediction discrepancies <span class="math inline">\(\mathrm{pd}\)</span> follow <span class="math inline">\(\mathcal{U}(0, 1)\)</span> by construction.</p>
+<p>This processs is described in the figure below:</p>
+<!-- # ```{r  fig.cap='Building prediction discrepancies', out.width='80%', fig.asp=.75, fig.align='center', echo=FALSE} -->
+<!-- # knitr::include_graphics("figures/buildingNpde.eps") -->
+<!-- # ``` -->
+</div>
+<div id="smoothing-the-distribution" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Smoothing the distribution</h3>
+<p>The simulation-based computation described above can lead to ties especially at the extremes, that is, different observations may have the same value of <span class="math inline">\(\mathrm{pd}\)</span> (this occurs particularly often if the number of simulations is small, or the model is quite different from the data). To avoid this issue, we have implemented an option to smooth the distribution: instead of using directly the quantile of the observation within the simulated distribution, as in equation <a href="statisticalMethods.html#eq:pdedef">(3.3)</a>, we draw the <span class="math inline">\(\mathrm{pd}\)</span> randomly between this quantile (say <span class="math inline">\(k/K\)</span>) and the one immediately above (<span class="math inline">\((k+1)/K\)</span>). We do this by adding a sample from a uniform distribution over the interval <span class="math inline">\(\left[0,\frac{1}{K}\right]\)</span> to the value defined by the previous equation:
+<span class="math display">\[\begin{equation}
+\mathrm{pd}_{ij} = u_{ij} + \frac{1}{K}{\displaystyle{\sum_{k=1}^{K}}\mathbb{1}_{  \Big\{y_{ij}^{sim(k)}&lt;y_{ij}  \Big\}}} 
+\end{equation}\]</span>
+Again, extreme values of the observations are treated separately:
+<span class="math display">\[\begin{equation*}
+\mathrm{pd}_{ij} \sim \left\{ \begin{array}{l r}
+            U \left[ 0,1/K\right] &amp; \text{if } y_{ij} \leq y_{ij}^{sim(k)} \; \forall \; k=1,\ldots, K \\
+            U[1-1/K,1] &amp; \text{if } y_{ij} &gt; y_{ij}^{sim(k)} \; \forall \; k=1,\ldots, K \\
+           \end{array}
+\right.
+\end{equation*}\]</span></p>
+<!-- This option can be set by using the ```ties=FALSE``` argument. -->
+<!-- ########################################################################################################## -->
+</div>
+<div id="normalised-prediction-distribution-errors-npde" class="section level3" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Normalised prediction distribution errors (npde)</h3>
+<!-- ########################################################################################################## -->
+<p>When multiple observations are available for one subject, typically in population analyses, the <span class="math inline">\(\mathrm{pd}\)</span> are correlated within each subject, leading to an inflation in the type I error of tests comparing the distribution of the <span class="math inline">\(\mathrm{pd}\)</span> to their theoretical distribution (<span class="citation"><a href="#ref-Mentre06" role="doc-biblioref">France and Escolano</a> (<a href="#ref-Mentre06" role="doc-biblioref">2006</a>)</span>). To correct for this correlation, we compute the mean <span class="math inline">\(\mathbb{E}(\mathrm{Y}_i)\)</span> and variance <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)\)</span> of the <span class="math inline">\(K\)</span> simulations (<span class="citation"><a href="#ref-Brendel06" role="doc-biblioref">Brendel et al.</a> (<a href="#ref-Brendel06" role="doc-biblioref">2006</a>)</span>). The mean is approximated by:
+<span class="math display">\[\mathbb{E}(\mathrm{Y}_{i})\thickapprox\frac{1}{K}\overset{K}{\underset{k=1}{\sum}}\mathrm{Y}_{i}^{sim(k)}\]</span>
+and the variance-covariance matrix is approximated by:
+<span class="math display">\[\mathrm{Var}(\mathrm{Y}_{i})\thickapprox \frac{1}{K}\overset{K}{\underset{k=1}{\sum}}(\mathrm{Y}_{i}^{sim(k)}-\mathbb{E}(\mathrm{Y}_{i}))(\mathrm{Y}_{i}^{sim(k)}-\mathbb{E}(\mathrm{Y}_{i}))^{\top}\]</span>
+Decorrelation is performed simultaneously for simulated data:
+<span class="math display">\[ \mathrm{Y}_{i}^{sim(k)*}= \mathrm{Var}(\mathrm{Y}_i)^{-1/2} (\mathrm{Y}_{i}^{sim(k)}-\mathbb{E}(\mathrm{Y}_i))\]</span>
+and for observed data:
+<span class="math display">\[ \mathrm{Y}_{i}^*= \mathrm{Var}(\mathrm{Y}_i)^{-1/2} (\mathrm{Y}_{i}-\mathbb{E}(\mathrm{Y}_i))\]</span>
+Since we are looking to obtain ‘residuals,’ different decorrelation options exist to obtain <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)^{-1/2}\)</span>, corresponding to different sets of decorrelated data. In the <strong>npde</strong> package, we propose 3 options, which will be detailed in the next section <a href="statisticalMethods.html#decorrelation">3.3</a>.</p>
+<p>Decorrelated <span class="math inline">\(\mathrm{pd}\)</span> are then obtained using the same formula as <a href="statisticalMethods.html#eq:pdedef">(3.3)</a> but with the decorrelated data, and we call the resulting variables prediction distribution errors (<span class="math inline">\(\mathrm{pde}\)</span>):
+<span class="math display">\[\begin{equation}
+\mathrm{pde}_{ij} = F^*_{ij}(y^*_{ij})
+\end{equation}\]</span></p>
+<p>Under H<span class="math inline">\(_0\)</span>, if <span class="math inline">\(K\)</span> is large enough, the distribution of the prediction distribution errors should follow a uniform distribution over the interval [0,1] by construction of the cdf. Normalized prediction distribution errors (<span class="math inline">\(\mathrm{npde}\)</span>) can then be obtained using the inverse function of the normal cumulative density function implemented in most software:
+<span class="math display">\[\begin{equation}
+\mathrm{npde}_{ij} = \Phi^{-1} (\mathrm{pde}_{ij})
+\end{equation}\]</span></p>
+<p>By construction, if H<span class="math inline">\(_0\)</span> is true, <span class="math inline">\(\mathrm{npde}\)</span> follow the <span class="math inline">\(\mathcal{N}(0, 1)\)</span> distribution and are uncorrelated within an individual. The decorrelation step however does not make the <span class="math inline">\(\mathrm{npde}\)</span> truly independent, since this is only valid for Gaussian variables and here the model nonlinearity makes this only approximately true (<span class="citation"><a href="#ref-Comets10" role="doc-biblioref">Emmanuelle, Karl, and Mentré</a> (<a href="#ref-Comets10" role="doc-biblioref">2010</a>)</span>).</p>
+<!-- ########################################################################################################## -->
+</div>
+</div>
+<div id="decorrelation" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Decorrelating the data to obtain <span class="math inline">\(\mathrm{pde}\)</span></h2>
+<div id="decorrelation-methods" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Decorrelation methods</h3>
+<p>To calculate the matrix <span class="math inline">\(Var(\mathrm{Y}_i)^{-1/2}\)</span> used for decorrelating data, we can use different methods.</p>
+<p>The Cholesky decomposition is a standard way to obtain residuals in regression models, and was used in the initial implementation of the <strong>npde</strong> library. It is computationally simple, numerically stable, and remains the default method. However, as an iterative pivotal algorithm it is sensitive to the ordering of the vector of <span class="math inline">\(\mathrm{Y}_i\)</span>. In PK or PD applications, time imposes a natural order on the vector of longitudinal observations which makes this method very relevant, however this may not be as simple for instance when there are multiple responses. The Cholesky decomposition method is also used in the proc MIXED of SAS, to calculate residuals for correlated data. Let <span class="math inline">\(\mathrm{C}\)</span> denote the Cholesky root of <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)\)</span> so that
+<span class="math display">\[\mathrm{C}^{\top}\mathrm{C} = \mathrm{Var}(\mathrm{Y}_i)\]</span>
+Then <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)^{-1/2} = (\mathrm{C}^{\top})^{-1}\)</span>.</p>
+<p>Using a Cholesky decomposition is not the only way to define residuals. An alternative which is invariant to re-ordering of the vector of observations is to use the unique square root of the matrix <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_{i})\)</span>, obtained using an eigenvalue decomposition. The matrix <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)\)</span> can be factorized as:
+<span class="math display">\[\mathrm{Var}(\mathrm{Y}_{i})= \mathrm{Q} \Lambda \mathrm{Q}^{-1}\]</span>
+where Q is the square matrix of the same dimension of <span class="math inline">\(Var(\mathrm{Y}_i)\)</span>, whose i<span class="math inline">\(^{\rm th}\)</span> column is the eigenvector of <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)\)</span> and <span class="math inline">\(\Lambda\)</span> is the diagonal matrix whose diagonal elements are the corresponding eigenvalues. The square root matrix of <span class="math inline">\(Var(\mathrm{Y}_i)\)</span> is then calculated as:
+<span class="math display">\[\mathrm{Var}(\mathrm{Y}_i)^{1/2} = \mathrm{Q} \Lambda^{1/2} \mathrm{Q}^{-1}\]</span>
+and this square root matrix is inverted to calculate the matrix <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)^{-1/2}\)</span>. This method is currently implemented in MONOLIX 4 and NONMEM 7 to calculate weighted residuals (WRES, IWPRES) and <strong>npde</strong>. However, when calculating the symmetric square root from the eigen value-eigen vector decomposition, we will essentially be defining principle directions determined by the variance-covariance matrix and thus, the decorrelated observations<span class="math inline">\(\normalsize{/}\)</span>residuals are rotated and no longer correspond to the natural ordering.</p>
+<p>We have also implemented a third method, combining a Cholesky decomposition with a polar decomposition~. Let <span class="math inline">\(\mathrm{C}\)</span> denote the Cholesky root of <span class="math inline">\(Var(\mathrm{Y}_i)\)</span>. Using polar decomposition, the matrix <span class="math inline">\(\mathrm{C}\)</span> can be factorized as: <span class="math inline">\(\mathrm{C} = \mathrm{U} \mathrm{H}\)</span>, where U is a unitary matrix and H is a positive-semidefinite Hermitian matrix. The square root matrix of <span class="math inline">\(Var(\mathrm{Y}_i)\)</span> is then calculated as:
+<span class="math display">\[\mathrm{Var}(\mathrm{Y}_i)^{1/2} = \mathrm{U}^{\top} \mathrm{C}\]</span>
+This square root matrix is then inversed to calculate the matrix <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)^{-1/2}\)</span>.</p>
+</div>
+<div id="choosing-a-decorrelation-method" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Choosing a decorrelation method</h3>
+<p>The Cholesky method was the only option available in the previous version of the library (<strong>npde</strong> 1.2) and is implemented as the default method in the current version (<strong>npde</strong> 2.0). Choosing the decorrelation method is done using the <code>decorr.method=""</code> option, with the following choices:</p>
+<p>i.<code>decorr.method="cholesky"</code>: Cholesky decomposition (pseudo-inverse obtained by the <code>chol</code> function)</p>
+<p>ii.<code>decorr.method="inverse"</code>: Inverse (unique inverse, obtained using the <code>eigen</code> function)</p>
+<p>iii.<code>decorr.method="polar"</code>: polar decomposition (pseudo-inverse obtained by combining the <code>chol</code> function with the <code>svd</code> function)</p>
+<p><strong>Note</strong> The user needs to be aware that sometimes the decorrelation step (regardless of the method chosen to perform it) will induce or mask patterns in the graphs of <strong>npde</strong> versus time or predictions. When strange patterns are seen, we advise the user to also look at the <span class="math inline">\(\mathrm{pd}\)</span> graphs, which do not involve the decorrelation step, to ascertain whether these patterns are really due to model misspecification and not an artefact of the decorrelation step, and/or to test different decorrelation methods.</p>
+<!-- ########################################################################################################## -->
+</div>
+</div>
+<div id="censoring-methods" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Censoring methods</h2>
+<p><strong>npde</strong> have been extended to censored data below the quantification limit in <span class="citation"><a href="#ref-Nguyen12" role="doc-biblioref">T. Nguyen, Comets, and Mentré</a> (<a href="#ref-Nguyen12" role="doc-biblioref">2012</a>)</span>. Additional extensions have been proposed for time-to-event data (right and interval-censored); these new extensions have not yet been integrated within the package and are available on the development github <a href="https://github.com/ecomets/npde30" class="uri">https://github.com/ecomets/npde30</a>.</p>
+<p>The npde package provides several methods to handle censoring.</p>
+<div id="choosing-the-method-to-handle-bql-data" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Choosing the method to handle BQL data</h3>
+<p>BQL data means that we do not observe <span class="math inline">\(y_{ij}\)</span> directly, but that we know the observation to be below a censoring value. We restrict ourselves to data below the LOQ, although extension to interval-censored data is straightforward. BQL data in the validation dataset can be treated in different ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>removed from the dataset: option<code>cens.method = "omit"</code></p></li>
+<li><p>imputed to model predictions: population predictions (option <code>cens.method = "ppred"</code>) or individual predictions (option <code>cens.method = "ipred"</code>)</p>
+<ul>
+<li>with the <code>ppred</code> method, population predictions are computed using the simulated datasets. For observation <span class="math inline">\(y_{ij}\)</span>, the population prediction is <span class="math inline">\(\mathbb{E}_k \Big(y^{sim(k)}_{ij}\Big)\)</span>.</li>
+<li>with the <code>ipred</code> method, individual predictions for each observation obtained during the estimation process need to be included in the data file as an additional column</li>
+<li><span class="math inline">\(\mathrm{pd}\)</span> and <span class="math inline">\(\mathrm{npde}\)</span> are computed after replacing observed and simulated data by the imputed values</li>
+</ul></li>
+<li><p>imputed to a fixed value: to LOQ (option <code>cens.method = "loq"</code>) or to a value chosen by the user (option<code>cens.method = "fixed"</code>,<code>loq=LOQ</code> where LOQ is a number)</p>
+<ul>
+<li>as in the previous method, <span class="math inline">\(\mathrm{pd}\)</span> and <span class="math inline">\(\mathrm{npde}\)</span> are computed after replacing observed and simulated data by the imputed values</li>
+</ul></li>
+</ol>
+<p>Sometimes the data includes different LOQs (for instance when the dataset pools several studies with different analytical methods). In this case, the program computes the smallest LOQ in the dataset, and this value is used to censor the simulated data (eg, any simulated value in the dataset lower than the LOQ is omitted or replaced using the imputation method chosen).</p>
+<p>Note that all methods involve some loss of power, all the more important when the fraction of BQL data is large, and thus conclusions must be made with prudence when using these imputation methods. However, simulations show that the <code>cens.method = "cdf"</code> is the most suitable (<span class="citation"><a href="#ref-Nguyen12" role="doc-biblioref">T. Nguyen, Comets, and Mentré</a> (<a href="#ref-Nguyen12" role="doc-biblioref">2012</a>)</span>), and that methods imputing directly with a fixed value or with population model predictions have a poor performance.</p>
+</div>
+<div id="imputation-of-bql-data-using-the-cumulative-distribution-function" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Imputation of BQL data using the cumulative distribution function</h3>
+<p>For an observation above LOQ ( Limit Of Quantiﬁcation ), the <span class="math inline">\(\mathrm{pd}\)</span> is computed as described above, as the quantile of the observation within the predicted distribution. For a BQL observation (left-censored observation) <span class="math inline">\(y^{cens}_{ij}\)</span> of the i<span class="math inline">\(^{\rm th}\)</span> individual at time <span class="math inline">\(t_{ij}\)</span>, we first evaluate its probability of being under LOQ <span class="math inline">\(\mathbb{P}(y_{ij}^{cens} \leq {\rm LOQ})\)</span> using the predictive distribution predicted from the model:
+<span class="math display">\[\begin{equation}
+\mathbb{P}(y_{ij}^{cens}\leq\mbox{LOQ})=F_{ij}(\mbox{LOQ})=\frac{1}{K}{\displaystyle{\sum_{k=1}^{K}}\mathbb{1}_{\bigg\{y_{ij}^{sim(k)}\leq\text{LOQ}\bigg\}}}
+\end{equation}\]</span>
+(these predicted probabilities are stored and returned in the results, see section @ref(npde.methods). Since we only know that the actual observation is below <span class="math inline">\(\text{LOQ}\)</span>, we propose to compute the <span class="math inline">\(\mathrm{pd}\)</span> for a left-censored observation y<span class="math inline">\(_{ij}^{cens}\)</span>, pd<span class="math inline">\(_{ij}^{cens}\)</span>, as a random sample from a uniform distribution over the interval <span class="math display">\[\big[0, \mathbb{P}\big(y_{ij}^{(cens)} \leq {\rm LOQ}\big)\big]\]</span>
+To obtain the <span class="math inline">\(\mathrm{npde}\)</span> however, we first need to also impute observations which are below LOQ. We transform the imputed <span class="math inline">\(\mathrm{pd}\)</span> back to an imputed observation using the inverse function of the predictive distribution function <span class="math inline">\(F_{ij}\)</span>:
+<span class="math display">\[\begin{equation}
+y_{ij}^{cens(new)}=F_{ij}^{-1}(pd_{ij}^{cens})
+\end{equation}\]</span>
+Since <span class="math inline">\(\mathrm{pd}\)</span> are quantiles, this corresponds to finding the quantile immediately after the imputed <span class="math inline">\(\mathrm{pd}_{ij}\)</span> and setting <span class="math inline">\(y_{ij}^{cens(new)}\)</span> to the value in the simulated distribution <span class="math inline">\(F_{ij}\)</span> corresponding to that quantile (see figure fig:imputation03 for an illustration). The new vector of observations <span class="math inline">\(\mathrm{Y}_{i}^{new}\)</span> now contains both observed values, for non censored data, and imputed values for censored data.</p>
+<!-- ```{r  fig.cap='Imputation for BQL data with or without ties', out.width='50%', fig.asp=.5, fig.align='center', out.extra='angle=270', echo=FALSE} -->
+<!-- knitr::include_graphics("figures/imputation.eps") -->
+<!-- ``` -->
+<p>We cannot simply decorrelate the vector of observed data <span class="math inline">\(y_{i}\)</span> using the simulations from the model, because the simulated dataset also contains values that would have been censored and treating them as simulated. We therefore propose to impute these censored data to a value between 0 and <span class="math inline">\(\text{LOQ}\)</span> using the same method. We impute a pd<span class="math inline">\(_{ij}^{sim^{(new)}(k)}\)</span> for each y<span class="math inline">\(_{ij}^{sim(k)}\)</span> below <span class="math inline">\(\text{LOQ}\)</span> in the simulated data and these y<span class="math inline">\(_{ij}^{sim(k)}\)</span> are replaced using the same imputation method applied to the observed data.
+<span class="math display">\[\begin{equation}
+y_{ij}^{sim^{(new)}(k)}=F_{ij}^{-1}(pd_{ij}^{sim^{(new)}(k)})\,\,\,\mbox{if }y_{ij}^{sim}\leq \text{LOQ}
+\end{equation}\]</span></p>
+<p>As previously, to avoid ties in the <span class="math inline">\(\mathrm{pd}\)</span> and <span class="math inline">\(\mathrm{npde}\)</span>, we can jitter the imputed <span class="math inline">\(\mathrm{pd}\)</span> and <span class="math inline">\(y\)</span>. Figure @ref{fig:imputation03} shows an illustration for both cases:</p>
+<ol style="list-style-type: lower-roman">
+<li>method <code>ties = TRUE</code>: if <span class="math inline">\(F_{ij}(y_{ij}^{sim(k)}) &lt; pd_{ij}^{cens}\leq F_{ij}(y_{ij}^{sim(k+1)})\)</span>, then <span class="math inline">\(y_{ij}^{cens} = y_{ij}^{sim(k+1)}\)</span></li>
+<li>method <code>ties = FALSE</code>: if <span class="math inline">\(F_{ij}(y_{ij}^{sim(k)}) &lt; pd_{ij}^{cens}\leq F_{ij}(y_{ij}^{sim(k+1)})\)</span>, then <span class="math inline">\(y_{ij}^{cens}\)</span> is randomly sampled in a uniform distribution over the interval <span class="math inline">\(\bigg[ y_{ij}^{sim(k)},y_{ij}^{sim(k+1)} \bigg]\)</span></li>
+</ol>
+<p><img src="figures/imputation.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>After the imputation step, a new vector of observations <span class="math inline">\(\mathrm{Y}_{i}^{(new)}\)</span> and new simulated data <span class="math inline">\(\mathrm{Y}_{i}^{sim^{(new)}}\)</span> are obtained. The complete data are then decorrelated using the same technique as described above. Note that the matrix <span class="math inline">\(\mathrm{Var}(\mathrm{Y}_i)\)</span> used to decorrelate is computed using the imputed data, while the predictive distribution functions <span class="math inline">\(F_{ij}\)</span> are computed using the original simulated data before the imputation step.</p>
+<!-- ########################################################################################################## -->
+</div>
+</div>
+<div id="tests" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Tests</h2>
+<div id="tests-on-the-distribution-of-npde" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Tests on the distribution of npde</h3>
+<!-- ########################################################################################################## -->
+<p>Under the null hypothesis that model M<span class="math inline">\(^B\)</span> describes adequately the data in the validation dataset, the <span class="math inline">\(\mathrm{npde}\)</span> follow the <span class="math inline">\(\mathcal{N}(0, 1)\)</span> distribution. We report the first three central moments of the distribution of the <span class="math inline">\(\mathrm{npde}\)</span>: mean, variance, skewness, as well as the kurtosis, where we define kurtosis as the fourth moment minus 3 so that the kurtosis for <span class="math inline">\(\mathcal{N}(0,1)\)</span> is 0 (sometimes called excess kurtosis). The expected value of these four variables for the expected <span class="math inline">\(\mathcal{N}(0,1)\)</span> are respectively:
+mean = 0,
+variance = 1,
+skewness = 0,
+kurtosis - 3 = 0.</p>
+<p>The program also reports the standard errors for the mean (SE=<span class="math inline">\(\sigma/\sqrt{N}\)</span>) and variance (SE=<span class="math inline">\(\sigma\;\sqrt{2/(N-1)}\)</span>).</p>
+<p>We use 3 tests to test the assumption that the <span class="math inline">\(\mathrm{npde}\)</span> follow the <span class="math inline">\(\mathcal{N}(0, 1)\)</span> distribution:</p>
+<ol style="list-style-type: lower-roman">
+<li>a Wilcoxon signed rank test, to test whether the mean is significantly different from 0,</li>
+<li>a Fisher test for variance, to test whether the variance is significantly different from 1,</li>
+<li>a Shapiro-Wilks test, to test whether the distribution is significantly different from a normal distribution.</li>
+</ol>
+<p>The package also reports a global test, which consists in considering the 3 tests above with a Bonferroni correction (<span class="citation"><a href="#ref-Brendel10" role="doc-biblioref">Brendel et al.</a> (<a href="#ref-Brendel10" role="doc-biblioref">2010</a>)</span>). The p-value for this global test is then reported as the minimum of the 3 p-values multiplied by 3, the number of simultaneous tests (or 1 if this value is larger than 1) (<span class="citation"><a href="#ref-Wright92" role="doc-biblioref">Wright</a> (<a href="#ref-Wright92" role="doc-biblioref">1992</a>)</span>). A graphical code is used in the library to highlight significant results, similar to the code used by other statistical functions in R such as <strong>lm</strong> (see example). The normality test is very powerful, especially with large amount of observations. When the test remains significant even after model refinement, QQ-plots should be used to assess model adequacy in addition to the 3 statistical tests. This is especially useful in large datasets where the sheer amount of data will lead to reject even reasonable models.</p>
+<!-- ########################################################################################################## -->
+</div>
+<div id="tests-for-covariate-models" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Tests for covariate models</h3>
+<!-- ########################################################################################################## -->
+<p>In <span class="citation"><a href="#ref-Brendel10" role="doc-biblioref">Brendel et al.</a> (<a href="#ref-Brendel10" role="doc-biblioref">2010</a>)</span>, we proposed two approaches to evaluate a model with or without covariates with a validation dataset.</p>
+<p>In the first approach, for continuous covariates we can test for correlations between the covariate and <span class="math inline">\(\mathrm{npde}\)</span>, using the Spearman correlation test; for categorical covariates we can use Wilcoxon or Kruskal-Wallis tests. If the model and validation data correspond, there should be no relationship between <span class="math inline">\(\mathrm{npde}\)</span> and covariates.</p>
+<p>In the second approach, we proposed to split the <span class="math inline">\(\mathrm{npde}\)</span> according to the values of the covariate, and test within each category that <span class="math inline">\(\mathrm{npde}\)</span> follows a <span class="math inline">\(\mathcal{N}(0,1)\)</span> distribution. For categorical covariates, <span class="math inline">\(\mathrm{npde}\)</span> are split by categories of the covariate. We proposed to discretise continuous covariates in 3 classes, below first quartile (<span class="math inline">\(&lt;\)</span>Q<span class="math inline">\(_1\)</span>), between first and third quartiles (Q<span class="math inline">\(_1\)</span>–Q<span class="math inline">\(_3\)</span>) and above third quartile (<span class="math inline">\(&gt;\)</span>Q<span class="math inline">\(_3\)</span>). If the model and validation data correspond, there should be no significant departure from <span class="math inline">\(\mathcal{N}(0,1)\)</span> within each category: a test is performed for each category, and the resulting p-values are corrected with a Bonferroni correction.</p>
+<p>Both approaches gave similar results in terms of type I error in a simulation study, but the second approach has a slightly larger type I error and a correspondingly slight increase in power (<span class="citation"><a href="#ref-Brendel10" role="doc-biblioref">Brendel et al.</a> (<a href="#ref-Brendel10" role="doc-biblioref">2010</a>)</span>). Tests for covariate models will be added shortly to the library.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Brendel06" class="csl-entry">
+Brendel, Karl, Emmanuelle Comets, Céline Laffont, Christian Laveille, and France Mentré. 2006. <span>“Metrics for External Model Evaluation with an Application to the Population Pharmacokinetics of Gliclazide.”</span> <em>Pharmaceutical Research</em> 23: 2036–49.
+</div>
+<div id="ref-Brendel10" class="csl-entry">
+Brendel, Karl, Emmanuelle Comets, Céline Laffont, and France Mentré. 2010. <span>“Evaluation of Different Tests Based on Observations for External Model Evaluation of Population Analyses.”</span> <em>Journal of Pharmacokinetics and Pharmacodynamics</em> 37: 49–65.
+</div>
+<div id="ref-Comets10" class="csl-entry">
+Emmanuelle, Comets, Brendel Karl, and France Mentré. 2010. <span>“Model Evaluation in Nonlinear Mixed Effect Models, with Applications to Pharmacokinetics.”</span> <em>Journal de La Société Française de Statistique</em> 151: 106–28.
+</div>
+<div id="ref-Mesnil98" class="csl-entry">
+Florence, Mesnil, Mentré France, Dubruc Catherine, Thénot Jean-Paul, and Mallet Alain. 1998. <span>“Population Pharmacokinetic Analysis of Mizolastine and Validation from Sparse Data on Patients Using the Nonparametric Maximum Likelihood Method.”</span> <em>Journal of Pharmacokinetics and Biopharmaceutics</em> 26 (2): 133–61.
+</div>
+<div id="ref-Mentre06" class="csl-entry">
+France, Mentré, and Sylvie Escolano. 2006. <span>“Prediction Discrepancies for the Evaluation of Nonlinear Mixed-Effects Models.”</span> <em>Journal of Pharmacokinetics and Pharmacodynamics</em> 33: 345–67.
+</div>
+<div id="ref-Nguyen12" class="csl-entry">
+Nguyen, THT, E Comets, and F Mentré. 2012. <span>“<span class="nocase">Prediction discrepancies (pd) for evaluation of models with data under limit of quantification</span>.”</span> <em>Journal of Pharmacokinetics and Pharmacodynamics</em> 39: 499–518.
+</div>
+<div id="ref-Wright92" class="csl-entry">
+Wright, S. Paul. 1992. <span>“Adjusted p-Values for Simultaneous Inference.”</span> <em>Biometrics</em> 48 (4): 1005–13.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="installation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="graphmethods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["npde_bookdown.pdf", "npde_bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

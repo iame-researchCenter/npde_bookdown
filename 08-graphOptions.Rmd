@@ -1,0 +1,139 @@
+# Tayloring options for graphs {#graphOptions}
+
+```{r, echo=FALSE}
+Sys.setenv(RSTUDIO_PANDOC= Sys.getenv("RSTUDIO_PANDOC")) 
+```
+
+## Setting options for graphs
+
+An object ```x``` resulting from a call to **npde()** or **autonpde()** contains a slot ```prefs``` where the graphical preferences are stored as a list. Options can be set on the fly for a given plot, by simply adding them to the call to **plot()** as an argument (see examples in section {sec:npde.examples}), and they will then supersede the preferences attached to the object:
+
+```
+plot(x,plot.type="data",col="red",main="Raw data")
+```
+
+The options can also be modified directly in the object, and they will then apply to the next plots, for instance changing the new default color to red for all plots is done by setting the attribute **col** in the list:
+
+```
+x["prefs"]$col<-"red"
+```
+
+Options given on the fly will always supersede the options stored in the ```prefs``` slot.
+
+If further tweaking is required, any graph can also be recreated with a bit of work using the output from the package. Using the function ```summary``` will extract the necessary elements from the object, and the user can then use those to produce her or his own graphs.
+
+```
+x1<-summary(x)
+names(x1)
+head(x1$x)
+head(x1$npde)
+```
+
+## Layout, titles and axes
+
+::: center
+    **[Argument]{style="color: black"}**                                                                                                                                           **[Default value]{style="color: black"}**
+  -------------------------------------- ---------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------
+                                 verbose Output is produced for some plots (most notably when binning is used, this prints out the boundaries of the binning intervals) if TRUE                      FALSE
+                                    main Title                                                                                                                                                  depends on plot
+                                     sub Subtitle                                                                                                                                                    empty
+                               size.main Size of the main title                                                                                                                                       14
+                                size.sub Size of the title for covariate                                                                                                                              12
+                                    xlab Label for the X-axis                                                                                                                                   depends on plot
+                                    ylab Label for the Y-axis                                                                                                                                   depends on plot
+                               size.xlab Size of the label for the X-axis                                                                                                                             12
+                               size.ylab Size of the label for the Y-axis                                                                                                                             12
+                                breaks.x Number of tick marks on the X-axis                                                                                                                           10
+                                breaks.y Number of tick marks on the Y-axis                                                                                                                           10
+                             size.x.text Size of tick marks and tick labels on the X-axis                                                                                                             10
+                             size.y.text Size of tick marks and tick labels on the Y-axis                                                                                                             10
+                                    xlim Range of values on the X-axis                                                                                                                    empty, adjusts to the data
+                                    ylim Range of values on the Y-axis                                                                                                                    empty, adjusts to the data
+                                    xaxt A character whether to plot the X axis. Specifying \"n\" suppresses plotting of the axis                                                                    \"y\"
+                                    yaxt A character whether to plot the Y axis. Specifying \"n\" suppresses plotting of the axis                                                                    \"y\"
+                                    xlog Scale for the X-axis (TRUE: logarithmic scale)                                                                                                              FALSE
+                                    ylog Scale for the Y-axis (TRUE: logarithmic scale)                                                                                                              FALSE
+                                    grid If TRUE, display a grid on the background of the plot                                                                                                       FALSE
+                                                                                                                                                                                  
+:::
+
+## Parameters controlling content.
+
+::: center
+    **[Argument]{style="color: black"}**                                                                                     **[Default value]{style="color: black"}**
+  -------------------------------------- ---------------------------------------------------------------------------------- -------------------------------------------
+                                plot.obs If TRUE, observations, pd/ndpe should are plotted on top of the prediction bands                      TRUE
+                                plot.box If TRUE, boxplots are produced instead of scatterplots                                                FALSE
+                                covsplit If TRUE, plot are split by covariates                                                                 FALSE
+                                plot.loq If TRUE, data under the LOQ are plotted                                                               TRUE
+                                line.loq If TRUE, horizontal line should is plotted at Y=LOQ in data and VPC plots                             FALSE
+                              impute.loq If TRUE, the imputed values are plotted for data under the LOQ                                        TRUE
+                                                                                                                            
+:::
+
+## Graphical options for VPC and residual plots.
+
+::: center
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      **[Default value]{style="color: black"}**
+  -------------- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------
+           bands Whether prediction intervals should be plotted                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       TRUE
+       approx.pi If TRUE, samples from $\mathcal{N}(0,1)$ are used to plot prediction intervals, while if FALSE, prediction bands are obtained using pd/npde computed for the simulated data                                                                                                                                                                                                                                                                                                                                                                                                                          TRUE
+      bin.method Method used to bin points (one of \"equal\", \"width\", \"user\" or \"optimal\"); at least the first two letters of the method need to be specified                                                                                                                                                                                                                                                                                                                                                                                                                                                  \"equal\"
+      bin.number Number of binning intervals                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          10
+    vpc.interval Size of interval                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     0.95
+      bin.breaks Vector of breaks used with user-defined breaks (vpc.method=\"user\")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 NULL
+     bin.extreme Can be set to a vector of 2 values to fine-tune the behaviour of the binning algorithm at the boundaries; specifying c(0.01,0.99) with the \"equal\" binning method and vpc.bin=10 will create 2 extreme bands containing 1% of the data on the X-interval, then divide the region within the two bands into the remaining 8 intervals each containing the same number of data; in this case the intervals will all be equal except for the two extreme intervals, the size of which is fixed by the user; complete fine-tuning can be obtained by setting the breaks with the vpc.method=\"user\"   NULL
+         pi.size Width of the prediction interval on the quantiles                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    0.95
+      bin.lambda Value of lambda used to select the optimal number of bins through a penalised criterion                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              0.3
+        bin.beta Value of beta used to compute the variance-based criterion (Jopt,beta(I)) in the clustering algorithm                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                0.2
+       bands.rep Number of simulated datasets used to compute prediction bands                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        200
+:::
+
+## Colours, transparency, line types and symbols.
+::: center
+    **[Argument]{style="color: black"}**                                                                                                                                                **[Default value]{style="color: black"}**
+  -------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------
+                                     col Main colour for observed data (applied to lines and symbols pertaining to observations if no other option is given to supersede this value)                 \"slategray4\"
+                                     lty Line type for observed data                                                                                                                                        1
+                                     lwd Line width for observed data                                                                                                                                      0.5
+                                     pch Symbol used to plot observed data                                                                                                                                 20
+                                   alpha Transparencyfor observed data                                                                                                                                      1
+                                    size Symbol size to plot observed data                                                                                                                                  1
+                                    fill Colour used to fill area elements related to observed data (such as histogram bars)                                                                             \"white\"
+                                    type Type for the line for qqplot and scatter. Display line and points.                                                                                               \"b\"
+                                col.pobs Colour for observed data                                                                                                                                    \"slategray4\"
+                                pch.pobs Symbol used to plot observed data                                                                                                                                 20
+                               size.pobs Symbol size to plot observed data                                                                                                                                 1.5
+                              alpha.pobs Transparency for observed data                                                                            
+                                col.lobs Colour for the line of observed data                                                                                                                        \"slategray4\"
+                                lty.lobs Line type for the line of observed data                                                                                                                            1
+                                lwd.lobs Line width for the line of observed data                                                                                                                          0.5
+                               col.pcens Colour for the censored data                                                                                                                                \"steelblue3\"
+                               pch.pcens Symbol for the censored data                                                                                                                                       8
+                              size.pcens Symbol size for the censored data                                                                                                                                 0.6
+                             alpha.pcens Transparency for the censored data                                                                                                                                 1
+                            col.line.loq Colour for the LOQ line                                                                                                                                        \"black\"
+                            lty.line.loq Symbol type for the LOQ line                                                                                                                                       5
+                            lwd.line.loq Symbol size for the LOQ line                                                                                                                                      0.5
+                       fill.outliers.med Color for the outliers of the median confidence interval                                                                                                         \"red\"
+                     fill.outliers.bands Color for the outliers of the bounds of the confidence interval                                                                                                  \"red\"
+                      alpha.outliers.med Transparency of the color for the outliers of the median confidence interval                                                                                        1
+                    alpha.outliers.bands Transparency of the color for the outliers the bounds of the confidence interval                                                                               1
+                               col.bands Colour for the lines of the bounds of the confidence interval                                                                                                  \"white\"
+                               lty.bands Type for the lines of bounds of the confidence interval                                                                                                            2
+                               lwd.bands Width of the lines of bounds of the confidence interval                                                                                                           0.25
+                             alpha.bands Transparency of the bounds of the confidence interval                                                                                                             0.3
+                              fill.bands Colour of the confidence interval                                                                                                                           \"steelblue2\"
+                                 col.med Colour for the lines of the median of the confidence interval                                                                                                   \"white\"
+                                 lty.med Type for the lines of the median of the confidence interval                                                                                                         2
+                                 lwd.med Width of the lines of the median of the confidence interva                                                                                                         0.5
+                               alpha.med Transparency of the median confidence interval                                                                                                                     0.5
+                                fill.med Colour of the median confidence interval                                                                                                                         \"pink\"
+                                col.ther Colour for the lines for model-derived percentiles                                 
+                                lty.ther Type for the lines for model-derived percentiles                                                                                                                    2
+                                lwd.ther Width of the lines for model-derived percentiles                                                                                                                   0.5
+                              alpha.ther Transparency of the lines for model-derived percentiles                                                                                                            0.6
+:::
+
+
+ 

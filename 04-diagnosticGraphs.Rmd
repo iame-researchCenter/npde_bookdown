@@ -1,0 +1,80 @@
+# Diagnostic graphs {#graphmethods}
+
+Diagnostic graphs aim to assess the goodness-of-fit between the model and the dataset and to determine whether the underlying model assumptions seem appropriate (@Nguyen17). The **npde** package provides diagnostics for **npd** and **npde**, as well as diagnostics such as VPC.
+
+## Assessing the distribution of npde
+
+Graphs can be used to visualise the shape of the distribution of the $\npde$. Classical plots include quantile-quantile plots (QQ-plots) of the distribution of the $\npde$ against the theoretical distribution, as well as  histograms and empirical cumulative distributions of the $\npde$ and $\pd$. We also find that scatterplots of the $\npde$ versus the independent variable, the predicted dependent variables, or covariates, can help pinpoint model deficiencies. Some of these graphs are plotted by default (see section \@ref(examples)). The package computes for each observation the predicted value as the empirical mean over the $k$ simulations of the simulated predicted distribution (denoted $\mathbb{E}_k\big(y^{sim(k)}_{ij}\big)$), which is reported under the name $\ypred$ along with the $\npde$ and$\normalsize{/}$or $\pd$.
+
+In the field of population PK$\normalsize{/}$PD, graphs of residuals versus predictions use the values predicted by the model even when the residuals have been decorrelated, as is the case for both spe and npde here. Comparing metrics to their theoretical distributions can be done through QQ-plots or histograms (@GoujardISA2010). Examples of these different graphs will be shown in the next section.
+
+## VPC
+
+\hskip 18pt Visual Predictive Check (VPC) are standard diagnostic graphs that are now available also in the ***npde*** library. In contrast to $\npde$, they do not handle heterogeneity in the design (eg dose regimen) or covariates, so that they are most useful in balanced designs to evaluate models without covariates. However since they are directly obtained from model observations and predictions they illustrate very nicely the shape of the evolution of independent versus dependent variable. VPC are obtained by simulating repeatedly under the model and plotting selected percentiles of the simulated data, comparing them to the same percentiles in the observed data. By default, the VPC produced in the ***npde*** package correspond to the median and limits of the 95\% prediction interval (eg, the 2.5th, 50th and 97.5th percentile of the data). The observed data can also be plotted over the interval, or omitted for very large datasets.
+
+In the presence of censored data, the same imputation method is also applied to the VPC. For instance, with the default method ``` cens.method='cdf'```, the data under the LOQ is set to the value imputed from the predictive distribution through the imputed $\pde$, as described in methods, for```cens.method='ipred'``` it it replaced by the corresponding individual predictions (which then have to be given in the dataset), while for ```cens.method='omit'```, it is removed from the dataset. In this last case, the simulated data used to compute the prediction bands is also removed from the simulated dataset, yielding larger prediction bands reflecting the lower number of observations involved.
+
+## Probability of being under the LOQ
+
+When the dataset includes data below the LOQ, a plot of the probability of being BQL can be useful to assess whether the model is able to adequately predict low values, and is available in the **npde** package.
+
+## Graph features 
+
+### Stratification
+
+When the model contains covariate effects, traditional VPC should be stratified and examined in each group. Alternatively, corrections such as pcVPC have been proposed, but are not implemented in the ***npde*** library.
+
+All the graphs available in the **npde** library can be stratified by levels of categorical covariates to determine whether trends appear in certain groups. For continuous covariates, categories can be created by grouping covariates into quantiles to achieve the same result (@Brendel10).
+
+### Prediction intervals
+
+In the current version of the library, prediction bands around selected percentiles, which can be obtained through repeated simulations under the model being tested, can be added to most graphs to highlight departures from predicted values (@Comets10). Prediction intervals build on the idea of simulating from the model to evaluate whether it can reproduce the observed data. For the VPC, a 95\% prediction interval on a given percentile (eg the median) can be obtained by computing the median for the K simulated datasets and taking the region where 95\% of these K medians lie. This can also be applied to scatterplots of $\npde$ or $\pd$, where for each percentile plotted in the graph we can compute a prediction interval of a given size. By default, 95\% is used in the **npde**, and each prediction interval is plotted as a coloured area (blue for the 2.5 and 97.5$^{\rm th}$ percentile and pink for the median); the corresponding 2.5$^{\rm th}$, 50$^{\rm th}$ and 97.5$^{\rm th}$ percentiles of the observed data are plotted as 
+lines or points, and should remain within the coloured areas.
+
+A binning algorithm is used for the prediction intervals (the number of bins can be adjusted by the user). Different options are:
+
+i. equal bin sizes on the X-axis
+
+ii. equal bin widths on the X-axis
+
+iii. optimal binning using a clustering algorithm to select the optimal breaks; 
+
+iv. user-selected breaks. The binning algorithm uses the ```Mclust``` library (@Fraley02,@Fraley06) for ***R***, which implements model-based clustering with an EM-algorithm to select the optimal number of clusters for the variable on the X-axis of the graph.
+
+## Graphs for covariate models
+
+Two types of diagnostic graphs are available in the ***npde*** library for covariates. First, all the graphs can be split according to the values of the covariate, to examine the $\npde$ separately in each group. We use the representation proposed in (@Brendel10) to evaluate covariate models, where $\npde$ are split by category for discrete covariates or by quantiles for continuous covariates (by default, 3 quantiles are used, $<Q1$, interquartile range $Q1-Q3$ over the middle 50\% value of the covariate, and $>Q3$, but the user can select the number of pertinent categories relative to the problem at hand). Prediction bands are also added to those graphs.
+
+A second type of diagnostic is to plot the $\npde$ or $\npd$ versus covariates, to examine the trends. For continuous covariates, a scatterplot of the metrics versus the covariate is provided, while for categorical covariates, we show boxplots for the different categories.
+
+## Graphs with a reference profile
+
+A new feature of the ***npde*** library is the ability to add a reference plot to the scatterplot of $\npde$ or $\npd$ versus the independent variable. This was first described in a poster at the PAGE conference (@CometsPAGE13), and makes the $\npde$ plots similar in aspect to VPC, with information on both the evolution of the process and the distribution of residuals in the same plot.
+
+The principle is to first select a reference profile, which can be associated with a subject or a group of subject, a covariate or combination of covariates. We then distribute the $\npde$ (or the $\npd$) around this reference profile, taking into account the interindividual variability. To do this, we first compute for each value $x_t$ of the predictor $x$ the mean $\mathbb{E}_{t_{ij}}$ and standard deviation SD$_{t_{ij}}$ of the simulations corresponding to the selected reference profile for that time. Denoting $I_R$ the set of individuals corresponding to the reference profile, we compute:
+
+\begin{equation}
+\begin{split}
+\mathbb{E}_{t_{ij}} &= \frac{1}{I_R \; K} \sum_{k=1}^{K} \sum_{i \in I_R}  y_{ij}^{sim(k)} \\
+{\rm Var}_{t_{ij}} &=  \frac{1}{I_R \; K -1}  \sum_{k=1}^{K} \sum_{i \in I_R}  (y_{ij}^{sim(k)} - \mathbb{E}_{t_{ij}})^2 \\
+\end{split}
+\end{equation}
+
+We then compute the transformed $\npde$ at time $t_{ij}$ as:
+\begin{equation}
+\tnpde_{ij} = \mathbb{E}_{t_{ij}} + {\rm SD}_{t_{ij}} \; \npde_{ij}
+\end{equation}
+This is performed for each time point for a balanced design. In the case of an unbalanced design, we first bin the predictors on the $X$ axis (@Lavielle11) and we compute the mean and SD for each bin, which are used within each bin to compute the transformed $\npde$. If the reference profile doesn't cover all the bins, we interpolate the missing values from the means and SD estimated in the available bins. 
+
+We then produce plots of $\tnpde$ versus the predictor as previously, for a given interval size (eg 90\% prediction intervals), by computing the observed and simulated percentiles of the $\tnpde$ on the observed and simulated data respectively. Prediction intervals around the percentiles can be obtained by the same transformation.
+
+Finally, we can apply the same procedure to transform the $\npd_{ij}$, bearing in mind the $\tnpde_{ij}$ will retain the correlation due to repeated observations.
+
+The plots generated with a reference profile have a similar interpretation as VPC, but since they are based on $\npde$, there should be no correlation between the different $\tnpde$ for a subject. A minor difference in construction is that VPC plot the median and extreme percentiles (eg 5$^{\rm th}$ and 95$^{\rm th}$ percentiles for a 90\% VPC), while with $\tnpde$ we translate the median of the residual plots by the mean of the reference profile, and expand the extreme percentiles using the standard deviation. 
+Note that it is the user's responsibility to use a pertinent reference profile. For example, if the design contains different dose-groups, the reference profile should be computed across one of the doses. In addition, the ***npde*** library offers an option to set a different reference profile for each value of a covariate when splitting the scatterplot over covariates (see previous section).
+
+<!-- % Larger PI than with VPC -->
+
+### Non-parametric construction of $\tnpde$ 
+An alternative using the median and quantiles of the reference profile to transform the $\npde$ will be implemented shortly.
+

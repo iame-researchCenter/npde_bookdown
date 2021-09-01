@@ -1,0 +1,98 @@
+# Introduction {#introduction}
+
+## Contents of the bookdown
+
+For details on installing the library, see section \@ref(installation) [Installation]. 
+
+Sections \@ref(statisticalMethods) [ Statistical methods] to \@ref(graphmethods) [Diagnostic graphs] present the statistical models and methods: 
+
+- in section \@ref(statisticalMethods) [ Statistical methods], we describe the statistical models and the evaluation methods. We also give details on specific methods to handle censored data or the different decorrelation methods available
+
+- in section \@ref(graphmethods) [ Diagnostic graphs], we describe the diagnostic graphs available in the package
+
+Section \@ref(npdePackage) [ Using the npde package] shows a step-by-step example of using the library to produce default diagnostic plots for the theophylline data. 
+
+In section \@ref(examples) [Examples], we illustrate the use of the package through several examples, showcasing the various diagnostic graphs and their interpretation. 
+
+In section \@ref(graphTypes0) [Types of graphs in the npde library], we show which plot types are available (some depend on whether for instance covariates or data below the limit of quantification are present in the dataset) for a NpdeObject object. The options available for binning are also shown.
+
+Section \@ref(graphOptions) [ Tayloring options for graphs] shows all the arguments that can be passed on to the *plot()* functions to change layout, titles, colours, symbols, content, in order to personalise the plots.
+
+Section \@ref(graphTypes) [ Types of graphs in the npde library] describes the different kinds of plots that can be produced using the *plot.type* argument to the generic *plot()* function, as well as the corresponding specialised functions that are called to produce each type of graph. 
+
+Finally, section \@ref(references) [ References] has a list of relevant references to the publications about **npde** and other diagnostic tools, while section \@ref(packageStructure) [  Structure of the npde package] contains some technical details concerning the online help, S4 classes and methods of the package.
+
+## Citing npde
+ 
+If you use this program in a scientific publication, we would like you to cite the following reference: @Comets08.
+Additional references are: @Brendel06, @Comets10, @Huyen2012, @Comets13, @CometsMentre2021.
+
+
+<!-- \begin{quote} -->
+<!-- \noindent Comets E, Brendel K, Mentré F. Computing normalised prediction distribution errors to evaluate nonlinear mixed-effect models: the npde add-on package for R. {\it Computer Methods and Programs in Biomedicine} 2008, 90:154-66. -->
+<!-- \end{quote} -->
+
+<!-- A BibTeX entry for \LaTeX$\;$ users is: -->
+
+<!-- @Article{Comets08, -->
+<!-- author	={Emmanuelle Comets and Karl Brendel and France Mentr{\'e}}, -->
+<!-- title	={Computing normalised prediction distribution errors to evaluate nonlinear mixed-effect models: the npde add-on package for {R}}, -->
+<!-- volume	={90}, -->
+<!-- pages	={154--66}, -->
+<!-- journal	={Computer Methods and Programs in Biomedicine}, -->
+<!-- year	=2008	} -->
+
+
+<!-- Additional references are: -->
+<!-- \begin{quotation} -->
+<!-- \noindent Brendel K, Comets E, Laffont CM, Laveille C, Mentré F. Metrics for -->
+<!-- external model evaluation with an application to the population pharmacokinetics -->
+<!-- of gliclazide. {\it Pharmaceutical Research} 2006, 23: 2036--2049. -->
+
+<!-- \noindent Comets E, Brendel K, Mentré F. Model evaluation in nonlinear mixed effect models, with applications to pharmacokinetics. {\it Journal de la Societe Francaise de Statistique} 2010, 151: 106-28. -->
+
+<!-- \noindent Nguyen TH, Comets E, Mentré F. Extension of NPDE for evaluation of nonlinear mixed effect models in presence of data below the quantification limit with applications to HIV dynamic model. {\it Journal of Pharmacokinetics and Pharmacodynamics} 2012, 39: 499-518. -->
+
+<!-- \noindent Comets E, Nguyen THT, Mentré F.  Additional features and graphs in the new npde library for R. 22nd PAGE meeting, Glasgow, UK, 2013. -->
+
+<!-- \noindent Comets E, Mentré F. Developing tools to evaluate non-linear mixed effect models: 20 years on the npde adventure. AAPS Journal, 2021. -->
+<!-- \end{quotation} -->
+
+<!-- with the corresponding BibTeX entries: -->
+<!-- \begin{verbatim} -->
+<!-- @Article{, -->
+<!-- author	={Karl Brendel and Emmanuelle Comets and C{\'e}line Laffont and -->
+<!-- Christian Laveille and France Mentr{\'e}}, -->
+<!-- title	={Metrics for external model evaluation with an application to the -->
+<!-- population pharmacokinetics of gliclazide}, -->
+<!-- volume	={23}, -->
+<!-- pages	={2036--49}, -->
+<!-- journal	={Pharmaceutical Research}, -->
+<!-- year	=2006	} -->
+
+<!-- @Article{, -->
+<!-- author	={Emmanuelle Comets and Karl Brendel and France Mentr{\'e}}, -->
+<!-- title	={Model evaluation in nonlinear mixed effect models, with applications -->
+<!-- to pharmacokinetics}, -->
+<!-- volume	={151}, -->
+<!-- pages	={106--28}, -->
+<!-- journal	={Journal de la Société Française de Statistique}, -->
+<!-- year	=2010	} -->
+
+<!-- @Article{, -->
+<!-- author = {Thi Huyen Tram Nguyen and Emmanuelle Comets and France Mentr{\'e}}, -->
+<!-- title   ={Extension of NPDE for evaluation of nonlinear mixed effect models -->
+<!-- in presence of data below the quantification limit with applications to {HIV} -->
+<!-- dynamic model}, -->
+<!-- volume	={39}, -->
+<!-- pages	={499--518}, -->
+<!-- journal ={Journal of Pharmacokinetics and Pharmacodynamics}, -->
+<!-- year    =2012	} -->
+
+<!-- @Article{, -->
+<!-- author	={Emmanuelle Comets and France Mentr{\'e}}, -->
+<!-- title	={Developing tools to evaluate non-linear mixed effect models: 20 years -->
+<!-- on the npde adventure}, -->
+<!-- journal	={AAPS Journal (accepted for publication)}, -->
+<!-- year	=2021	} -->
+<!-- \end{verbatim} -->

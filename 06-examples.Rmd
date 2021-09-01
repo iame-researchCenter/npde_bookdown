@@ -1,0 +1,363 @@
+# Examples {#examples}
+
+## Load the libraries and the npde package
+
+```{r setup, echo=TRUE, message=FALSE}
+# Libraries
+library( gridExtra )
+library( ggplot2 )
+library( grid )
+library( devtools )
+library( mclust )
+library( npde )
+```
+## Load the data and the simulated data
+
+Github repository for the data
+<https://github.com/ecomets/npde30/tree/main/keep/data>
+
+```{r warfarin_data, echo=TRUE}
+# Data 
+data( warfarin )
+data( simwarfarinCov )
+
+fullDatDir = paste0(getwd(),"/data/")
+
+simwarfarinBase = read.table( file.path( fullDatDir, "simwarfarinBase.tab" ), header = TRUE )
+```
+### Warfarin : description of the data
+
+```{r warfarin_description, echo=TRUE }
+# Warfarin
+head( warfarin )
+
+# Warfarin with base model
+head( simwarfarinBase )
+
+# Warfarin with covariate model
+head( simwarfarinCov )
+```
+## Compute the normalised prediction distribution errors
+
+```{r warfarin_autonpde, echo=TRUE, warning=FALSE}
+wbase <- autonpde( namobs = warfarin, namsim = simwarfarinBase, 
+                   iid = 1, ix = 2, iy = 4, icov = c( 3,6:8 ), namsav = "warfBase", 
+                   units = list( x = "hr", y = "ug/L", covariates = c( "mg","kg","-","yr" ) ) )
+
+wcov <- autonpde( namobs = warfarin, namsim = simwarfarinCov, 
+                  iid = 1, ix = 2, iy = 4, icov = c( 3,6:8 ), namsav = "warfCov", 
+                  units = list( x = "h", y = "mg/L", covariates = c( "mg","kg","-","yr" ) ) )
+```
+
+```{r warfarin_autonpde_output, echo=TRUE, warning=FALSE}
+show( wbase )
+print( wbase )
+summary( wbase )
+```
+
+### Description of the output wcov
+
+```{r warfarin_cov_autonpde_description, echo=TRUE}
+
+# wcov
+head( wcov )
+
+# wcov slots
+slotNames( wcov )
+
+# wcov covariates
+wcov@data@name.covariates
+
+# wcov graphical options
+#wcov@prefs
+
+```
+
+## Data 
+
+### Plot the data for the base model
+
+``` plot.type = "data" ``` : Plots the observed data in the dataset
+
+```{r warfarin_wbase_plot_data, echo=TRUE}
+# wbase model
+plot( wbase, plot.type = "data" )
+```
+
+### Default plot for the base model
+
+```{r warfarin_base_plot_default, echo=TRUE}
+# base model
+plot( wbase, which = "npde" )
+```
+
+``` plot.type = "hist" ``` Histogram  
+
+``` plot.type = qqplot``` QQ-plot of the npde versus its theoretical distribution 
+
+``` plot.type = x.scatter``` Scatterplot of the npde versus the predictor 
+
+``` plot.type = pred.scatter``` Scatterplot of the npde versus the population predicted values 
+
+```{r warfarin_base_plot_default_each, echo=TRUE}
+hist = plot( wbase, plot.type = "hist", which = "npde" )
+
+qqplot = plot( wbase, plot.type = "qqplot", which = "npde" )
+
+x_scatter = plot( wbase, plot.type = "x.scatter", which = "npde" )
+
+pred_scatter = plot( wbase, plot.type = "pred.scatter", which = "npde" )
+
+grid.arrange( grobs = list( hist, qqplot ), nrow = 1, ncol = 2 )
+
+grid.arrange( grobs = list( x_scatter, pred_scatter ), nrow = 1, ncol = 2 )
+
+```
+
+## Covariate model
+
+### Default plots 
+
+```{r warfarin_cov_plot_default, echo=TRUE}
+# covariate model
+plot( wcov , which = "npde")
+```
+
+### Scatterplots of npd
+
+``` plot.type = "x.scatter" ``` : Scatterplot of the npd versus the predictor 
+
+``` covsplit = TRUE ```  : split by categories
+
+```{r warfarin_cov_scatter_split_covariates, echo=TRUE, message = FALSE}
+
+# Splitting npde vs time plots by covariates
+plot( wcov, plot.type = "x.scatter", covsplit = TRUE, which.cov = c( "wt" ) )
+# plot( wcov, plot.type = "x.scatter", covsplit = TRUE, which.cov = c( "wt","sex" ) )
+# plot( wcov, plot.type = "x.scatter", covsplit = TRUE, which.cov = c( "wt" ), which = "pd" )
+# plot( wcov, plot.type = "x.scatter", covsplit = TRUE, which.cov = c( "wt" ), which = "npde" )
+
+```
+
+### Plot npd as boxplots for each covariate category
+
+``` plot.type = "covariates" ``` npd represented as boxplots for each covariate category 
+
+```{r warfarin_cov_scatter_split_covariates_box_plot, echo=TRUE, warning=FALSE}
+
+wt.covariate.boxplot <- plot( wcov, plot.type = "covariates", which.cov = c( "wt" ) )
+sex.covariate.boxplot <- plot( wcov, plot.type = "covariates", which.cov = c( "sex" ) )
+
+# grid plot
+grid.arrange( grobs = list( wt.covariate.boxplot[[1]], sex.covariate.boxplot[[1]] ), 
+              nrow = 1, ncol = 2 )
+
+```
+
+
+### Diagnostic plots for covariates
+
+
+``` plot.type = "cov.scatter" ``` : Scatterplot of the npd versus covariates 
+
+``` plot.type = "covariates" ``` : Boxplots for each covariate category
+
+``` plot.type = "ecdf" ``` : Empirical distribution function 
+
+```{r warfarinCovPlotDiagnostic, echo=TRUE, warning=FALSE}
+
+# cov.scatter
+xwt.covscatt <- plot( wcov, plot.type = "cov.scatter", which.cov = "wt", bin.method = "optimal" )
+
+# ecdf
+xwt.ecdf <- plot( wcov, plot.type = "ecdf", covsplit = TRUE, which.cov = "wt" )
+
+# x.scatter
+xsex.covscatt <-  plot( wcov, plot.type = "x.scatter", covsplit = TRUE, which.cov = "sex" )
+
+# ecdf
+xsex.ecdf <- plot( wcov, plot.type = "ecdf", covsplit = TRUE, which.cov = "sex" )
+
+# grid plot
+grid.arrange( grobs = list( xwt.covscatt, xwt.ecdf, xsex.covscatt, xsex.ecdf ), 
+              nrow = 2, ncol = 2 )
+
+```
+
+## Reference profile
+
+### Reference plot using one subject
+
+```{r warfarin_cov_reference_profil_one_subject, echo=TRUE, warning=FALSE}
+
+plot.tnpde <- plot( wcov, plot.type = "x.scatter", 
+                    ref.prof = list( id = 2 ), 
+                    main = "tnpd with reference profile ID = 2" )
+
+plot.vpc <- plot( wcov, 
+                  plot.type = "vpc", 
+                  main = "VPC" ) 
+
+grid.arrange( grobs = list( plot.tnpde, plot.vpc ), nrow = 1, ncol = 2 )
+
+```
+
+### Reference plot using all subjects  
+
+```{r warfarin_cov_reference_profil_all_subject, echo=TRUE, warning=FALSE}
+
+plot.tnpde <- plot( wcov, plot.type = "x.scatter", 
+                    ref.prof = "all", main = "tnpd", ylim = c ( 0,20 ) )
+
+plot.vpc <- plot( wcov, plot.type = "vpc", main = "VPC", ylim = c( 0, 20 ) )
+
+grid.arrange( grobs = list( plot.tnpde, plot.vpc ), nrow = 1, ncol = 2 )
+
+```
+
+
+  
+## Computing npde in the presence of BQL data  
+  
+```{r virloadData, echo=TRUE}
+
+data( virload )
+data( virload20 )
+data( virload50 )
+
+virload <- read.table( file.path( fullDatDir, "virload.tab" ), header = TRUE )
+simvirload <- read.table( file.path( fullDatDir, "simvirload.tab" ), header = TRUE )
+
+```
+#### Censoring methods
+
+``` cens.method = "omit" ```
+
+``` cens.method = "ipred" ```
+
+``` cens.method = "ppred" ```
+
+``` cens.method = "cdf" ```
+
+
+```{r virloadData_autonpde, echo=TRUE}
+
+x50 <- autonpde( virload50, simvirload, 
+                 iid = 1, ix = 2, iy = 3, icens = 4,
+                 boolsave = FALSE, units = list( x = "hr", y = "cp/mL, log 10 base" ) )
+
+x50.ipred <- autonpde( virload50, simvirload,
+                       iid = 1, ix = 2, iy = 3, icens = 4, iipred = 5, 
+                       boolsave = FALSE, cens.method = "ipred", 
+                       units = list( x = "hr", y = "cp/mL, log 10 base" ) )
+
+x50.ppred <- autonpde( virload50, simvirload,
+                       iid = 1, ix = 2, iy = 3, icens = 4,
+                       boolsave = FALSE, cens.method = "ppred", 
+                       units = list(x = "hr", y = "cp/mL, log 10 base" ) )
+
+x50.omit <- autonpde( virload50, simvirload,
+                      iid = 1, ix = 2, iy = 3, icens = 4,
+                      boolsave = FALSE, cens.method = "omit", 
+                      units = list( x = "hr", y = "cp/mL, log 10 base" ) )
+
+```
+
+### Data
+
+``` impute.loq ``` : the imputed values are plotted for data under the LOQ
+
+``` line.loq ``` : horizontal line should is plotted at Y=LOQ in data and VPC plots
+
+``` plot.loq ``` : data under the LOQ are plotted
+
+```{r }
+x50@data@loq
+```
+
+```{r virloadDataPlotCensored, echo=TRUE}
+
+x1 <- plot( x50, plot.type = "data", 
+            xlab = "Time (hr)", ylab = "log(Viral load) (cp/mL)", 
+            line.loq = TRUE, ylim = c(0,6.5), 
+            main = "LOQ imputed using cdf" )
+
+x2 <- plot( x50, plot.type = "data", 
+            xlab = "Time (hr)", ylab = "log(Viral load) (cp/mL)", 
+            plot.loq = FALSE, line.loq = TRUE, ylim = c(0,6.5), 
+            main = "LOQ removed from plot" )
+
+x3 <- plot( x50, plot.type = "data", 
+            xlab = "Time (hr)", ylab = "log(Viral load) (cp/mL)", 
+            impute.loq = FALSE, line.loq = TRUE, ylim = c(0,6.5),
+            main = "LOQ as in dataset before imputation" )
+
+x4 <- plot( x50.ipred, plot.type = "data", 
+            xlab = "Time (hr)", ylab = "log(Viral load) (cp/mL)", 
+            line.loq = TRUE, ylim = c(0,6.5), 
+            main = "LOQ imputed to individual prediction" )
+
+grid.arrange( grobs = list(x1,x2,x3,x4 ), nrow = 2, ncol = 2 )
+
+```
+  
+### Comparing the censoring methods
+  
+#### Default graphs for the virload50 dataset, default censoring method "cdf"
+```{r docVirloadCensoringMethods_cdf, echo=FALSE}
+plot(x50)
+```
+
+#### Default graphs for the virload50 dataset, censoring method "omit"
+```{r docVirloadCensoringMethods_omit, echo=FALSE}
+plot(x50.omit)
+```
+
+#### Default graphs for the virload50 dataset, censoring method "ipred"
+```{r docVirloadCensoringMethods_ipred, echo=FALSE}
+# Default graphs for the virload50 dataset, censoring method "ipred".
+plot(x50.ipred)
+```
+
+#### Default graphs for the virload50 dataset, censoring method "ppred"
+```{r docVirloadCensoringMethods_ppred, echo=FALSE}
+plot(x50.ppred)
+```
+
+### VPC plots
+
+```{r docVirloadVPC, echo=TRUE, warning=FALSE}
+
+vpc.cdf = plot( x50,plot.type = "vpc", line.loq=TRUE )
+
+vpc.omit = plot( x50.omit,plot.type = "vpc" )
+
+grid.arrange( grobs = list( vpc.omit, vpc.cdf ), nrow=1, ncol=2)
+
+```
+
+### Scatterplots
+
+```{r docVirloadScatterPlot, echo=TRUE, warning=FALSE}
+
+xscatter.omit <- plot( x50.omit, plot.type = "x.scatter" )
+
+xscatter.cdf <- plot( x50, plot.type = "x.scatter" )
+
+grid.arrange( grobs = list( xscatter.omit, xscatter.cdf ), nrow = 1, ncol = 2 )
+
+plot(x50 , plot.type = "x.scatter", plot.box = TRUE )
+
+```
+
+### Plot for $\mathbb{P}(Y<LOQ)$
+
+```{r docVirloadPInfLOQ, echo=TRUE, warning=FALSE}
+
+# P(Y<LOQ)
+
+plot( x50, plot.type = "loq", main = " ")
+
+```
+
+ 

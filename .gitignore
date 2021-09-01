@@ -1,0 +1,17 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+# no need to commit image files
+_bookdown_files
+
+
+
+#git commit -m 'Initial Commit'
+#git push -u origin master
+
+# git show-ref
+# git status
+
+## https://mrromainleroux.github.io/npde_bookdown/index.html

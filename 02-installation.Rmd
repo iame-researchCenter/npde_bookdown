@@ -1,0 +1,25 @@
+# Installation  {#installation}
+
+**npde** can be installed and used on several platforms.  The program is distributed as an add-on package (library) for R, and is available on the CRAN, from the menu or using the command *install.packages()* from within R. Superuser privileges may be required for a system-wide installation.
+
+Please consult the *R Installation and Administration* manual (section 6) provided with R (or available from the CRAN) for further details concerning the installation of packages.
+
+
+<!-- CRAN -->
+
+## `CRAN`
+You can install the package directly from your R console using the install.packages() command from R:
+
+```
+install.packages("npde")
+```
+
+<!-- Github -->
+## `Github`: Build from source
+You can also build it from Github using the R package "devtools":
+
+```
+library("devtools")
+install_github("ecomets/npde" )
+library(npde)
+```

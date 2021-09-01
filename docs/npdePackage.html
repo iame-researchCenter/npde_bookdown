@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Using the npde package | npde: Open Source R normalised prediction distribution errors</title>
+  <meta name="description" content="User’s guide and documentation for npde package" />
+  <meta name="generator" content="bookdown 0.23.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Using the npde package | npde: Open Source R normalised prediction distribution errors" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="User’s guide and documentation for npde package" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Using the npde package | npde: Open Source R normalised prediction distribution errors" />
+  
+  <meta name="twitter:description" content="User’s guide and documentation for npde package" />
+  
+
+<meta name="author" content="Emmanuelle Comets, Karl Brendel, Marc Cerou, Thi Huyen Tram Nguyen, Romain Leroux, France Mentré" />
+
+
+<meta name="date" content="2021-09-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="graphmethods.html"/>
+<link rel="next" href="examples.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">npde R Package Guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome to the npde package in R</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#user-guide"><i class="fa fa-check"></i>User Guide</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#legalese"><i class="fa fa-check"></i>Legalese</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#contents-of-the-bookdown"><i class="fa fa-check"></i><b>1.1</b> Contents of the bookdown</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#citing-npde"><i class="fa fa-check"></i><b>1.2</b> Citing npde</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>2</b> Installation</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="installation.html"><a href="installation.html#cran"><i class="fa fa-check"></i><b>2.1</b> <code>CRAN</code></a></li>
+<li class="chapter" data-level="2.2" data-path="installation.html"><a href="installation.html#github-build-from-source"><i class="fa fa-check"></i><b>2.2</b> <code>Github</code>: Build from source</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="statisticalMethods.html"><a href="statisticalMethods.html"><i class="fa fa-check"></i><b>3</b> Statistical methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#models-and-notations"><i class="fa fa-check"></i><b>3.1</b> Models and notations</a></li>
+<li class="chapter" data-level="3.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#computing-pde-and-npde"><i class="fa fa-check"></i><b>3.2</b> Computing pde and npde</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#prediction-discrepancies-pd"><i class="fa fa-check"></i><b>3.2.1</b> Prediction discrepancies (pd)</a></li>
+<li class="chapter" data-level="3.2.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#smoothing-the-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Smoothing the distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="statisticalMethods.html"><a href="statisticalMethods.html#normalised-prediction-distribution-errors-npde"><i class="fa fa-check"></i><b>3.2.3</b> Normalised prediction distribution errors (npde)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="statisticalMethods.html"><a href="statisticalMethods.html#decorrelation"><i class="fa fa-check"></i><b>3.3</b> Decorrelating the data to obtain <span class="math inline">\(\mathrm{pde}\)</span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#decorrelation-methods"><i class="fa fa-check"></i><b>3.3.1</b> Decorrelation methods</a></li>
+<li class="chapter" data-level="3.3.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#choosing-a-decorrelation-method"><i class="fa fa-check"></i><b>3.3.2</b> Choosing a decorrelation method</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="statisticalMethods.html"><a href="statisticalMethods.html#censoring-methods"><i class="fa fa-check"></i><b>3.4</b> Censoring methods</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#choosing-the-method-to-handle-bql-data"><i class="fa fa-check"></i><b>3.4.1</b> Choosing the method to handle BQL data</a></li>
+<li class="chapter" data-level="3.4.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#imputation-of-bql-data-using-the-cumulative-distribution-function"><i class="fa fa-check"></i><b>3.4.2</b> Imputation of BQL data using the cumulative distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests"><i class="fa fa-check"></i><b>3.5</b> Tests</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests-on-the-distribution-of-npde"><i class="fa fa-check"></i><b>3.5.1</b> Tests on the distribution of npde</a></li>
+<li class="chapter" data-level="3.5.2" data-path="statisticalMethods.html"><a href="statisticalMethods.html#tests-for-covariate-models"><i class="fa fa-check"></i><b>3.5.2</b> Tests for covariate models</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graphmethods.html"><a href="graphmethods.html"><i class="fa fa-check"></i><b>4</b> Diagnostic graphs</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="graphmethods.html"><a href="graphmethods.html#assessing-the-distribution-of-npde"><i class="fa fa-check"></i><b>4.1</b> Assessing the distribution of npde</a></li>
+<li class="chapter" data-level="4.2" data-path="graphmethods.html"><a href="graphmethods.html#vpc"><i class="fa fa-check"></i><b>4.2</b> VPC</a></li>
+<li class="chapter" data-level="4.3" data-path="graphmethods.html"><a href="graphmethods.html#probability-of-being-under-the-loq"><i class="fa fa-check"></i><b>4.3</b> Probability of being under the LOQ</a></li>
+<li class="chapter" data-level="4.4" data-path="graphmethods.html"><a href="graphmethods.html#graph-features"><i class="fa fa-check"></i><b>4.4</b> Graph features</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="graphmethods.html"><a href="graphmethods.html#stratification"><i class="fa fa-check"></i><b>4.4.1</b> Stratification</a></li>
+<li class="chapter" data-level="4.4.2" data-path="graphmethods.html"><a href="graphmethods.html#prediction-intervals"><i class="fa fa-check"></i><b>4.4.2</b> Prediction intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="graphmethods.html"><a href="graphmethods.html#graphs-for-covariate-models"><i class="fa fa-check"></i><b>4.5</b> Graphs for covariate models</a></li>
+<li class="chapter" data-level="4.6" data-path="graphmethods.html"><a href="graphmethods.html#graphs-with-a-reference-profile"><i class="fa fa-check"></i><b>4.6</b> Graphs with a reference profile</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="graphmethods.html"><a href="graphmethods.html#non-parametric-construction-of-mathrmtnpde"><i class="fa fa-check"></i><b>4.6.1</b> Non-parametric construction of <span class="math inline">\(\mathrm{tnpde}\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="npdePackage.html"><a href="npdePackage.html"><i class="fa fa-check"></i><b>5</b> Using the npde package</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="npdePackage.html"><a href="npdePackage.html#theophylline-data"><i class="fa fa-check"></i><b>5.1</b> Theophylline data</a></li>
+<li class="chapter" data-level="5.2" data-path="npdePackage.html"><a href="npdePackage.html#preparation-of-the-input"><i class="fa fa-check"></i><b>5.2</b> Preparation of the input</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="npdePackage.html"><a href="npdePackage.html#observed-data"><i class="fa fa-check"></i><b>5.2.1</b> Observed data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="npdePackage.html"><a href="npdePackage.html#simulated-data"><i class="fa fa-check"></i><b>5.2.2</b> Simulated data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="npdePackage.html"><a href="npdePackage.html#number-of-simulations"><i class="fa fa-check"></i><b>5.2.3</b> Number of simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="npdePackage.html"><a href="npdePackage.html#execution"><i class="fa fa-check"></i><b>5.3</b> Execution</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="npdePackage.html"><a href="npdePackage.html#interactive-execution"><i class="fa fa-check"></i><b>5.3.1</b> Interactive execution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="npdePackage.html"><a href="npdePackage.html#non-interactive-execution"><i class="fa fa-check"></i><b>5.3.2</b> Non-interactive execution</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="npdePackage.html"><a href="npdePackage.html#results"><i class="fa fa-check"></i><b>5.4</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="npdePackage.html"><a href="npdePackage.html#value"><i class="fa fa-check"></i><b>5.4.1</b> Value</a></li>
+<li class="chapter" data-level="5.4.2" data-path="npdePackage.html"><a href="npdePackage.html#tests-1"><i class="fa fa-check"></i><b>5.4.2</b> Tests</a></li>
+<li class="chapter" data-level="5.4.3" data-path="npdePackage.html"><a href="npdePackage.html#default-graphs"><i class="fa fa-check"></i><b>5.4.3</b> Default graphs</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i><b>6</b> Examples</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="examples.html"><a href="examples.html#load-the-libraries-and-the-npde-package"><i class="fa fa-check"></i><b>6.1</b> Load the libraries and the npde package</a></li>
+<li class="chapter" data-level="6.2" data-path="examples.html"><a href="examples.html#load-the-data-and-the-simulated-data"><i class="fa fa-check"></i><b>6.2</b> Load the data and the simulated data</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="examples.html"><a href="examples.html#warfarin-description-of-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Warfarin : description of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="examples.html"><a href="examples.html#compute-the-normalised-prediction-distribution-errors"><i class="fa fa-check"></i><b>6.3</b> Compute the normalised prediction distribution errors</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="examples.html"><a href="examples.html#description-of-the-output-wcov"><i class="fa fa-check"></i><b>6.3.1</b> Description of the output wcov</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="examples.html"><a href="examples.html#data"><i class="fa fa-check"></i><b>6.4</b> Data</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples.html"><a href="examples.html#plot-the-data-for-the-base-model"><i class="fa fa-check"></i><b>6.4.1</b> Plot the data for the base model</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples.html"><a href="examples.html#default-plot-for-the-base-model"><i class="fa fa-check"></i><b>6.4.2</b> Default plot for the base model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="examples.html"><a href="examples.html#covariate-model"><i class="fa fa-check"></i><b>6.5</b> Covariate model</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="examples.html"><a href="examples.html#default-plots"><i class="fa fa-check"></i><b>6.5.1</b> Default plots</a></li>
+<li class="chapter" data-level="6.5.2" data-path="examples.html"><a href="examples.html#scatterplots-of-npd"><i class="fa fa-check"></i><b>6.5.2</b> Scatterplots of npd</a></li>
+<li class="chapter" data-level="6.5.3" data-path="examples.html"><a href="examples.html#plot-npd-as-boxplots-for-each-covariate-category"><i class="fa fa-check"></i><b>6.5.3</b> Plot npd as boxplots for each covariate category</a></li>
+<li class="chapter" data-level="6.5.4" data-path="examples.html"><a href="examples.html#diagnostic-plots-for-covariates"><i class="fa fa-check"></i><b>6.5.4</b> Diagnostic plots for covariates</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="examples.html"><a href="examples.html#reference-profile"><i class="fa fa-check"></i><b>6.6</b> Reference profile</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="examples.html"><a href="examples.html#reference-plot-using-one-subject"><i class="fa fa-check"></i><b>6.6.1</b> Reference plot using one subject</a></li>
+<li class="chapter" data-level="6.6.2" data-path="examples.html"><a href="examples.html#reference-plot-using-all-subjects"><i class="fa fa-check"></i><b>6.6.2</b> Reference plot using all subjects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="examples.html"><a href="examples.html#computing-npde-in-the-presence-of-bql-data"><i class="fa fa-check"></i><b>6.7</b> Computing npde in the presence of BQL data</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="examples.html"><a href="examples.html#data-1"><i class="fa fa-check"></i><b>6.7.1</b> Data</a></li>
+<li class="chapter" data-level="6.7.2" data-path="examples.html"><a href="examples.html#comparing-the-censoring-methods"><i class="fa fa-check"></i><b>6.7.2</b> Comparing the censoring methods</a></li>
+<li class="chapter" data-level="6.7.3" data-path="examples.html"><a href="examples.html#vpc-plots"><i class="fa fa-check"></i><b>6.7.3</b> VPC plots</a></li>
+<li class="chapter" data-level="6.7.4" data-path="examples.html"><a href="examples.html#scatterplots"><i class="fa fa-check"></i><b>6.7.4</b> Scatterplots</a></li>
+<li class="chapter" data-level="6.7.5" data-path="examples.html"><a href="examples.html#plot-for-mathbbpyloq"><i class="fa fa-check"></i><b>6.7.5</b> Plot for <span class="math inline">\(\mathbb{P}(Y&lt;LOQ)\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="graphTypes0.html"><a href="graphTypes0.html"><i class="fa fa-check"></i><b>7</b> Types of graphs in the npde library</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="graphTypes0.html"><a href="graphTypes0.html#plot-type"><i class="fa fa-check"></i><b>7.1</b> Plot type</a></li>
+<li class="chapter" data-level="7.2" data-path="graphTypes0.html"><a href="graphTypes0.html#specific-plot-functions"><i class="fa fa-check"></i><b>7.2</b> Specific plot functions</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="graphTypes0.html"><a href="graphTypes0.html#binning"><i class="fa fa-check"></i><b>7.2.1</b> Binning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="graphOptions.html"><a href="graphOptions.html"><i class="fa fa-check"></i><b>8</b> Tayloring options for graphs</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="graphOptions.html"><a href="graphOptions.html#setting-options-for-graphs"><i class="fa fa-check"></i><b>8.1</b> Setting options for graphs</a></li>
+<li class="chapter" data-level="8.2" data-path="graphOptions.html"><a href="graphOptions.html#layout-titles-and-axes"><i class="fa fa-check"></i><b>8.2</b> Layout, titles and axes</a></li>
+<li class="chapter" data-level="8.3" data-path="graphOptions.html"><a href="graphOptions.html#parameters-controlling-content."><i class="fa fa-check"></i><b>8.3</b> Parameters controlling content.</a></li>
+<li class="chapter" data-level="8.4" data-path="graphOptions.html"><a href="graphOptions.html#graphical-options-for-vpc-and-residual-plots."><i class="fa fa-check"></i><b>8.4</b> Graphical options for VPC and residual plots.</a></li>
+<li class="chapter" data-level="8.5" data-path="graphOptions.html"><a href="graphOptions.html#colours-transparency-line-types-and-symbols."><i class="fa fa-check"></i><b>8.5</b> Colours, transparency, line types and symbols.</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="graphTypes.html"><a href="graphTypes.html"><i class="fa fa-check"></i><b>9</b> Types of graphs in the npde library</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="graphTypes.html"><a href="graphTypes.html#plot-type-1"><i class="fa fa-check"></i><b>9.1</b> Plot type</a></li>
+<li class="chapter" data-level="9.2" data-path="graphTypes.html"><a href="graphTypes.html#specific-plot-functions-1"><i class="fa fa-check"></i><b>9.2</b> Specific plot functions</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="graphTypes.html"><a href="graphTypes.html#binning-1"><i class="fa fa-check"></i><b>9.2.1</b> Binning</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="packageStructure.html"><a href="packageStructure.html"><i class="fa fa-check"></i><b>10</b> Structure of the npde package</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="packageStructure.html"><a href="packageStructure.html#online-help"><i class="fa fa-check"></i><b>10.0.1</b> Online help</a></li>
+<li class="chapter" data-level="10.1" data-path="packageStructure.html"><a href="packageStructure.html#errors-during-execution"><i class="fa fa-check"></i><b>10.1</b> Errors during execution</a></li>
+<li class="chapter" data-level="10.2" data-path="packageStructure.html"><a href="packageStructure.html#functions-in-the-npde-package"><i class="fa fa-check"></i><b>10.2</b> Functions in the <strong>npde</strong> package</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>11</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><strong>npde</strong>: Open Source R normalised prediction distribution errors</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="npdePackage" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Using the npde package</h1>
+<p>In this section, we describe in details how to use the npde package, using the theophylline data.</p>
+<p>Other examples are shown in section <a href="examples.html#examples">6</a>. Some additional datasets are packaged, others are available in the subdirectory <strong>doc/inst</strong> of the library and/or on the github <a href="https://github.com/ecomets/npde30/tree/main/keep/data" class="uri">https://github.com/ecomets/npde30/tree/main/keep/data</a></p>
+<div id="theophylline-data" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Theophylline data</h2>
+</div>
+<div id="preparation-of-the-input" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Preparation of the input</h2>
+<p>The library needs two files:</p>
+<ol style="list-style-type: decimal">
+<li><p>the file containing the dataset to be evaluated (hereafter named “observed data”)</p></li>
+<li><p>the file containing the simulations (hereafter named “simulated data”)</p></li>
+</ol>
+<p>The library does not perform the simulations. <strong>R</strong>, <strong>NONMEM</strong> (<span class="citation"><a href="#ref-NONMEM" role="doc-biblioref">Beal et al.</a> (<a href="#ref-NONMEM" role="doc-biblioref">1989-2011</a>)</span>), <strong>MONOLIX</strong> (<span class="citation"><a href="#ref-MONOLIX" role="doc-biblioref">Marc Lavielle</a> (<a href="#ref-MONOLIX" role="doc-biblioref">2005</a>)</span>) or any program of your choice can be used for that purpose.</p>
+<div id="observed-data" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Observed data</h3>
+<p>The observed data file must contain at least the following 3 columns:</p>
+<ol style="list-style-type: decimal">
+<li><p>id: patient identification</p></li>
+<li><p>xobs: independent variable (time, X, …)</p></li>
+<li><p>yobs: dependent variable (DV, concentrations, effects…)</p></li>
+</ol>
+<p>Additional (optional) columns may be given. The program will recognise the following input:</p>
+<ul>
+<li><p>cens: censoring information (0 for observed data, 1 for censored data)</p></li>
+<li><p>mdv: missing data (0 for observed data, 1 for missing data); this information supersedes censoring information, so that an observation with mdv equal to 1 will be treated as missing, not as censored; observations with values “.” or NA will also be considered as missing</p></li>
+<li><p>ipred: individual model predictions</p></li>
+<li><p>covariates</p></li>
+</ul>
+<p>The computation of and will remove missing observations from the observed dataset reported in the output (see section results).</p>
+<p>Other columns may be present but will not be used by the library. The actual order of the columns is unimportant, since the user may specify which column contain the requested information, but the default order is 1. id, 2. xobs, 3. yobs and no MDV column. A file header may be present, and column separators should be one of: blank space(s), tabulation mark, comma (,) or semi-colon (;). Finally, the digit mark should be a dot as in English (eg a number would read 4.5) and not a comma as in French (4,5).</p>
+<p>To run the theophylline example, we load the data through the <em>data()</em> function, and show the first lines:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r Rchunk"><code class="sourceCode r"><span id="cb3-1"><a href="npdePackage.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(theopp)</span>
+<span id="cb3-2"><a href="npdePackage.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(theopp)</span></code></pre></div>
+<pre><code>##   ID Dose Time  Conc   Wt
+## 1  1 4.02 0.00    NA 79.6
+## 2  1   NA 0.25  2.84   NA
+## 3  1   NA 0.57  6.57   NA
+## 4  1   NA 1.12 10.50   NA
+## 5  1   NA 2.02  9.66   NA
+## 6  1   NA 3.82  8.58   NA</code></pre>
+<p>Here, the first column contains the patient ID, while the third and fourth contain respectively the independent and the dependent variables.</p>
+</div>
+<div id="simulated-data" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Simulated data</h3>
+<p>The user must provide a file containing the K simulated datasets stacked one after the other. Within each simulated dataset, the order of the observations must be the same as within the observed dataset. The dimensions of the two datasets must be compatible: if n<span class="math inline">\(_{\rm obs}\)</span> is the number of lines in the observed dataset, the file containing the simulated datasets must have K<span class="math inline">\(\times\)</span>n<span class="math inline">\(_{\rm obs}\)</span> lines.</p>
+<p>The simulated data file must contain at least 3 columns, in the following order:</p>
+<ol style="list-style-type: decimal">
+<li><p>id : patient identification</p></li>
+<li><p>xsim: independent variable (time, X, …)</p></li>
+<li><p>ysim: dependent variable (DV, concentrations, effects…)</p></li>
+</ol>
+<p>Additional columns may be present but will not be used by the library.</p>
+<p>The length of the <span class="math inline">\(\color{purple}{id}\)</span> (resp <span class="math inline">\(\color{purple}{xobs}\)</span>) column must be equal to the length of the <span class="math inline">\(\color{purple}{id}\)</span> (resp <span class="math inline">\(\color{purple}{xobs}\)</span>) column of the observed dataset repeated K times.</p>
+<p>The simtheopp dataset is distributed along with the package, so we can load it as previously using data().</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r Rchunk"><code class="sourceCode r"><span id="cb5-1"><a href="npdePackage.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(simtheopp)</span>
+<span id="cb5-2"><a href="npdePackage.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(simtheopp)</span></code></pre></div>
+<pre><code>##   ID xsim      ysim
+## 1  1 0.00 -0.090212
+## 2  1 0.25  2.289200
+## 3  1 0.57  4.227900
+## 4  1 1.12  5.497900
+## 5  1 2.02  7.917300
+## 6  1 3.82  5.394300</code></pre>
+<p>We can check that the 3 first columns provide the right information in the right order (id, simulated independent variable, simulated dependent variable).</p>
+</div>
+<div id="number-of-simulations" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Number of simulations</h3>
+<p>Based on the results of simulation studies (<span class="citation"><a href="#ref-Brendel10" role="doc-biblioref">Brendel et al.</a> (<a href="#ref-Brendel10" role="doc-biblioref">2010</a>)</span>,<span class="citation"><a href="#ref-Comets10" role="doc-biblioref">Emmanuelle, Karl, and Mentré</a> (<a href="#ref-Comets10" role="doc-biblioref">2010</a>)</span>), we recommend to use at least <span class="math inline">\(K\)</span>=1000 but the actual number may depend on the dataset involved, and should be increased when the dataset includes a large number of subjects. This will be investigated in more details in future work on <strong>npde</strong>. A warning will be issued when <span class="math inline">\(K\)</span> is smaller than 1000.</p>
+<p>Note that because of size constraints on CRAN, the dataset simtheopp we are using in this section only contains 100 replicates of the original dataset, lower than the 1000+ recommended to compute npde.</p>
+</div>
+</div>
+<div id="execution" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Execution</h2>
+<div id="interactive-execution" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Interactive execution</h3>
+<p>The interactive mode is called by the function <strong>npde()</strong>:</p>
+<pre><code>myres&lt;-npde()</code></pre>
+<div id="using-npde" class="section level4" number="5.3.1.1">
+<h4><span class="header-section-number">5.3.1.1</span> Using npde()</h4>
+<p>The user will be prompted to enter successively:</p>
+<ul>
+<li><p>the name of the file or dataframe containing the observed data (here, theopp)</p></li>
+<li><p>the columns in which id, xobs, dependent variable yobs, and possibly
+column with missing data MDV can be found (the default order is 1, 2, 3 and no
+MDV column, therefore here we change ix and iy to reflect the structure of theopp)</p></li>
+<li><p>the name of the file or dataframe containing the simulated data (here, simtheopp)</p></li>
+<li><p>whether results should be saved to disk; if so, the user must also enter</p>
+<ul>
+<li><p>the format of the graph (one of: Postscript, JPEG, PNG or PDF)</p></li>
+<li><p>the name of the files: an extension <strong>npde</strong> will be added to this name for the file in which numerical results are to be saved (see section results), and an extension depending on the format of the graph will be added to this name for the file in which graphs are to be saved (respectively .eps, .jpeg, .png, .pdf for the formats above). For instance, if the user enters <strong>myoutput</strong> and requests that the graphs be saved in PDF format, the results file will be named <strong>myoutput.npde</strong> and the graph files will be <strong>myoutput.pdf</strong>.</p></li>
+</ul></li>
+<li><p>whether <span class="math inline">\(\mathrm{npde}\)</span> should be computed</p></li>
+<li><p>whether <span class="math inline">\(\mathrm{pd}\)</span> should be computed</p></li>
+<li><p>whether a message should be printed as the computation of <span class="math inline">\(\mathrm{npde}\)</span> begins in a new subject</p></li>
+<li><p>whether the function should return values (see section value)</p></li>
+</ul>
+<p>Alternatively, one or both filenames for the observed and simulated data can be replaced by a dataframe if the data has already been loaded in R (see example in the online documentation provided with the package).</p>
+</div>
+<div id="application-to-the-theophylline-example" class="section level4" number="5.3.1.2">
+<h4><span class="header-section-number">5.3.1.2</span> Application to the theophylline example</h4>
+<p>The interactive version of the program was run below for the theophylline example. In a first step, the user was prompted to enter all details necessary for the computations <span class="math inline">\(\color{purple}{ \textbf{in purple}}\)</span> show values entered by the user while text in black is printed by the program:</p>
+<p><code>myres&lt;-npde()</code></p>
+<p>Name of the file containing the observed data: <span class="math inline">\(\color{purple}{\textbf{theopp.tab}}\)</span></p>
+<p>Automatic recognition of columns in the dataset (y<span class="math inline">\(\normalsize{/}\)</span>Y) [default=yes] ? <span class="math inline">\(\color{purple}{\textbf{n}}\)</span></p>
+<p>I’m assuming file theopp.tab has the following structure:</p>
+<ul>
+<li>ID X Y <span class="math inline">\(\dots\)</span></li>
+</ul>
+<p>and does not contain a column signaling missing data.</p>
+<p>To keep, press ENTER, to change, type any letter: <span class="math inline">\(\color{purple}{\textbf{n}}\)</span></p>
+<ul>
+<li><p>Column with ID information ? <span class="math inline">\(\color{purple}{\textbf{1}}\)</span></p></li>
+<li><p>Column with X (eg time) information ? <span class="math inline">\(\color{purple}{\textbf{3}}\)</span></p></li>
+<li><p>Column with Y (eg DV) information ? <span class="math inline">\(\color{purple}{\textbf{4}}\)</span></p></li>
+<li><p>Column signaling missing data (eg MDV, press ENTER if none) ?</p></li>
+<li><p>Column signaling censoring (eg CENS, press ENTER if none) ?</p></li>
+<li><p>Column with individual predictions (eg ipred, press ENTER if none) ?</p></li>
+<li><p>Columns with covariates (eg WT; enter one at a time, press ENTER if none or when finished) ?</p></li>
+<li><p>Name of the file containing the simulated data: <span class="math inline">\(\color{purple}{\textbf{ simtheopp.tab}}\)</span></p></li>
+<li><p>Do you want results and graphs to be saved to files (y<span class="math inline">\(\normalsize{/}\)</span>Y) [default=yes] ? <span class="math inline">\(\color{purple}{\textbf{y}}\)</span></p></li>
+</ul>
+<p>Different formats of graphs are possible:</p>
+<ol style="list-style-type: decimal">
+<li><p>Postscript (extension eps)</p></li>
+<li><p>JPEG (extension jpeg)</p></li>
+<li><p>PNG (extension png)</p></li>
+<li><p>Acrobat PDF (extension pdf)</p></li>
+</ol>
+<p>Which format would you like for the graph (1-4) ? <span class="math inline">\(\color{purple}{\textbf{1}}\)</span></p>
+<p>Name of the file (extension will be added, default=output): <span class="math inline">\(\color{purple}{\textbf{theophylline}}\)</span></p>
+<p>Do you want to compute npde (y<span class="math inline">\(\normalsize{/}\)</span>Y) [default=yes] ? <span class="math inline">\(\color{purple}{\textbf{y}}\)</span><br />
+Do you want to compute pd (y<span class="math inline">\(\normalsize{/}\)</span>Y) [default=yes] ? <span class="math inline">\(\color{purple}{\textbf{y}}\)</span><br />
+Different decorrelation methods are available:</p>
+<ol style="list-style-type: decimal">
+<li><p>Cholesky decomposition (default)</p></li>
+<li><p>Inverse using diagonalisation (as in Monolix and Nonmem)</p></li>
+<li><p>Cholesky followed by polar decomposition</p></li>
+</ol>
+<p>Which method should be used for the decorrelation (1-3) ? <span class="math inline">\(\color{purple}{\textbf{1}}\)</span></p>
+<p>Method used to handle censored observations:</p>
+<ol style="list-style-type: decimal">
+<li><p>omit: pd will be set to NaN for missing data</p></li>
+<li><p>cdf: pd will be imputed using a random sample from <span class="math inline">\(\mathcal{U}\big[0,p_{\text{LOQ}}\big]\)</span> where <span class="math inline">\(p_{\text{LOQ}}\)</span> is the probability, according to the model, that a given observation is less than LOQ (default)</p></li>
+<li><p>loq: an observation below the LOQ will be imputed to the LOQ</p></li>
+<li><p>ypred: an observation below the LOQ will be imputed to the population model prediction</p></li>
+<li><p>ipred: an observation below the LOQ will be imputed to the individual model prediction</p></li>
+</ol>
+<p>Which method should be used (1-5) ? <span class="math inline">\(\color{purple}{\textbf{2}}\)</span></p>
+<p>Do you want a message printed as the computation of npde begins in a new subject (y<span class="math inline">\(\normalsize{/}\)</span>Y) [default=no] ? <span class="math inline">\(\color{purple}{\textbf{y}}\)</span></p>
+<p>Do you want the function to return an object (y<span class="math inline">\(\normalsize{/}\)</span>Y) [default=yes] ? <span class="math inline">\(\color{purple}{\textbf{y}}\)</span></p>
+<p>In the second step, the program computed the normalised prediction distribution errors, plotted the corresponding graphs and performed the statistical tests for <strong>npde</strong>, then computed the prediction discrepancies (for which no tests are reported). A warning is issued here because the number of simulations is considered too small.</p>
+<p>Here we see that the test of the mean (<code>t-test</code>) and variance (<code>Fisher variance test</code>) don’t shown any significant departure from the theoretical values of 0 and 1 respectively, on the other hand, the normality test (<code>SW test of normality</code>) indicates a departure from the normal distribution, so that the global test (<code>Global adjusted p-value</code>), consisting of a Bonferroni-corrected combination of the three test, also shows a significant departure from the theoretical distribution. However, the results of the tests don’t necessarily reflect model adequacy in this case, because of the small number of simulations used.</p>
+<pre><code>Automatic detection of variables is ON. The program will attempt to detect
+both mandatory variables (ID, X, Y) and optional variables (IPRED, MDV, CENS) 
+when they are not specifically given or when the user-specified names are not 
+found in the dataset, by looking in the names of the columns (to override this 
+behaviour, please use argument detect=FALSE in the call to npdeData().
+Reading data from file ../data/theopp.tab 
+These are the first lines of the dataset as read into R. Please check the format 
+of the data is appropriate, if not, modify the na and/or sep items and retry:
+  ID Dose Time  Conc   Wt
+1  1 4.02 0.00    NA 79.6
+2  1   NA 0.25  2.84   NA
+3  1   NA 0.57  6.57   NA
+4  1   NA 1.12 10.50   NA
+5  1   NA 2.02  9.66   NA
+6  1   NA 3.82  8.58   NA
+The following NpdeData object was successfully created:
+Object of class NpdeData
+    longitudinal data
+Dataset ../data/theopp.tab 
+    Structured data: Conc ~ Time | ID 
+    predictor: Time (hr) 
+NpdeDataReading data from file ../data/simtheopp.tab 
+These are the first lines of the dataset as read into R. Please check the format 
+of the data is appropriate, if not, modify the na and/or sep items and retry:
+  ID xsim      ysim
+1  1 0.00 -0.090212
+2  1 0.25  2.289200
+3  1 0.57  4.227900
+4  1 1.12  5.497900
+5  1 2.02  7.917300
+6  1 3.82  5.394300
+There are rows with MDV=1 in the original dataset, the corresponding rows 
+will be removed from the simulated dataset.
+Warning: the number of simulations is 100 which may be too small.
+We advise performing at least 1000 simulations to compute npde.
+Computing the npde for subject  1 
+Computing the npde for subject  2 
+Computing the npde for subject  3 
+Computing the npde for subject  4 
+Computing the npde for subject  5 
+Computing the npde for subject  6 
+Computing the npde for subject  7 
+Computing the npde for subject  8 
+Computing the npde for subject  9 
+Computing the npde for subject  10 
+Computing the npde for subject  11 
+Computing the npde for subject  12 
+---------------------------------------------
+Distribution of npde :
+      nb of obs: 120 
+           mean= 0.0668   (SE= 0.095 )
+       variance= 1.074   (SE= 0.14 )
+       skewness= 0.511 
+       kurtosis= 0.2912 
+---------------------------------------------
+Statistical tests (adjusted p-values):
+  t-test                : 1
+  Fisher variance test  : 1
+  SW test of normality  : 0.00819 **
+  Global test           : 0.00819 **
+---
+Signif. codes: &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 
+---------------------------------------------</code></pre>
+</div>
+</div>
+<div id="non-interactive-execution" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Non-interactive execution</h3>
+<p>In the non-interactive mode, the required information is fed to the function <strong>autonpde</strong> instead of answering a series of questions. The minimum input should include the name of the observed data file (for example, <strong>theopp.tab</strong>) and the name of the simulated data file (for example, <strong>simtheopp.tab</strong>,
+as in:</p>
+<pre><code>autonpde(&quot;theopp.tab&quot;,&quot;simtheopp.tab&quot;)</code></pre>
+<div id="application-to-the-theophylline-example-1" class="section level4" number="5.3.2.1">
+<h4><span class="header-section-number">5.3.2.1</span> Application to the theophylline example</h4>
+<p>Here is an example of the call to <strong>autonpde()</strong> with the theophylline data:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="npdePackage.html#cb10-1" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="fu">autonpde</span>(<span class="at">namobs=</span>theopp,<span class="at">namsim=</span>simtheopp,<span class="at">iid=</span><span class="dv">1</span>,<span class="at">ix=</span><span class="dv">3</span>,<span class="at">iy=</span><span class="dv">4</span>,</span>
+<span id="cb10-2"><a href="npdePackage.html#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">imdv=</span><span class="dv">0</span>,<span class="at">namsav=</span><span class="st">&quot;output.eps&quot;</span>,<span class="at">boolsave=</span>T,<span class="at">type.graph=</span><span class="st">&quot;eps&quot;</span>,<span class="at">verbose=</span>T)</span></code></pre></div>
+<pre><code>## Using the object called theopp in this R session as the data.
+## 
+## 
+## The following NpdeData object was successfully created:
+## 
+## Object of class NpdeData
+##     longitudinal data
+##     Structured data: Conc ~ Time | ID 
+##     predictor: Time () 
+## Using the object called simtheopp in this R session as the data.</code></pre>
+<pre><code>## There are rows with MDV=1 in the original dataset, the corresponding rows will be removed from the simulated dataset.</code></pre>
+<pre><code>## Warning: the number of simulations is100which may be too small.</code></pre>
+<pre><code>## We advise performing at least 1000 simulations to compute npde.</code></pre>
+<pre><code>## Computing the npde for subject  1 
+## Computing the npde for subject  2 
+## Computing the npde for subject  3 
+## Computing the npde for subject  4 
+## Computing the npde for subject  5 
+## Computing the npde for subject  6 
+## Computing the npde for subject  7 
+## Computing the npde for subject  8 
+## Computing the npde for subject  9 
+## Computing the npde for subject  10 
+## Computing the npde for subject  11 
+## Computing the npde for subject  12 
+## ---------------------------------------------
+## Distribution of npde :
+##       nb of obs: 120 
+##            mean= 0.0668   (SE= 0.095 )
+##        variance= 1.074   (SE= 0.14 )
+##        skewness= 0.511 
+##        kurtosis= 0.2912 
+## ---------------------------------------------
+## Statistical tests (adjusted p-values):
+##   t-test                : 1
+##   Fisher variance test  : 1
+##   SW test of normality  : 0.00819 **
+##   Global test           : 0.00819 **
+## ---
+## Signif. codes: &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 
+## ---------------------------------------------
+## Saving results in file output.eps.npde 
+## Saving graphs in file output.eps.eps 
+## Transparency options not working with ggsave, please use cairo to save the plot in eps format or choose another output format (pdf, png, jpeg).
+## Selected plot type: default 
+## Method used for binning: by quantiles on X , dividing into the following 10 intervals
+##    Interval      Centered.On Nb.obs
+## 1  (-0.75,0.418]  0.28       12    
+## 2  (0.418,0.854]  0.57       12    
+## 3  (0.854,1.48]   1.03       12    
+## 4  (1.48,2.76]    2.02       12    
+## 5  (2.76,4.41]    3.56       12    
+## 6  (4.41,6.1]     5.04       12    
+## 7  (6.1,8.09]     7.05       12    
+## 8  (8.09,10.7]    9.06       12    
+## 9  (10.7,19.5]   12.03       12    
+## 10 (19.5,24.6]   24.20       12    
+## Method used for binning: by quantiles on X , dividing into the following 10 intervals
+##    Interval     Centered.On Nb.obs
+## 1  (-0.11,2.05] 1.4         12    
+## 2  (2.05,3.56]  3.2         12    
+## 3  (3.56,4.29]  4.0         12    
+## 4  (4.29,5.07]  4.8         12    
+## 5  (5.07,5.57]  5.3         12    
+## 6  (5.57,6.25]  5.9         12    
+## 7  (6.25,6.95]  6.6         12    
+## 8  (6.95,7.47]  7.2         12    
+## 9  (7.47,8.22]  7.8         12    
+## 10 (8.22,10]    9.0         12</code></pre>
+<p><img src="npde_bookdown_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+The<code>invisible()</code> option is used to suppress the output when it is not affected to an object.</p>
+<p>A number of options can also be set as arguments, and are given in table …</p>
+<!--  ```{r} -->
+<!--  library(knitr) -->
+<!--  library(kableExtra) -->
+<!--  df <- data.frame( -->
+<!--  Item = c("........", "........"), -->
+<!--  Value = c(10, 10)) -->
+<!--  kable(df, "latex", align = "c", booktabs = TRUE,  -->
+<!--        escape = F, caption = '...', -->
+<!--        col.names = linebreak(c("1", "2"), align = "c"))  -->
+</div>
+</div>
+</div>
+<div id="results" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Results</h2>
+<!-- \label{sec:results} -->
+<p>Both execution modes will produce the same results. Three types of results are produced by default, but options can be used so that only some of them are created:</p>
+<ol style="list-style-type: decimal">
+<li><p>an R object of class NpdeObject, containing several elements, including the <span class="math inline">\(\mathrm{npde}\)</span> and/or <span class="math inline">\(\mathrm{pd}\)</span> (see section {sec:value}). With the option <strong>output=F</strong> the object is not returned.</p></li>
+<li><p>a graph file containing diagnostic plots of the <span class="math inline">\(\mathrm{npde}\)</span> (<strong>output.eps</strong> with the default values; see section {sec:graphics}). The graph also appears in the graphic window of the current R session. With the option <strong>boolsave=F</strong> the graph is shown but not saved to a file.</p></li>
+<li><p>a text file with the same name as the graph file and extension <strong>.npde</strong> containing the following data ( <strong>output.npde</strong> with the default values), organised in columns: id, xobs, ypred, npde, pd With the option <strong>boolsave=F</strong>, the results are not saved.</p></li>
+</ol>
+<div id="value" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Value</h3>
+<!-- \label{sec:value} -->
+<p>By default, the function returns an object of class NpdeObject:</p>
+<pre><code>print(y)</code></pre>
+<p>The <strong>npde</strong> package uses the S4 class system, and many functions have been defined to handle the object and produce descriptive summaries and plots (please refer to section sec:npde.methods for more details about S4 classes). As a result, the output is no longer a list that can be manipulated, but a slightly more complicated object. A <code>summary</code> function can be used to produce a list containing the main results:</p>
+<pre><code>x1&lt;-summary(y)</code></pre>
+<p>The object returned by the function contains 5 elements:</p>
+<ol style="list-style-type: decimal">
+<li>: a NpdeData object containing the information relative to the observed data</li>
+<li>: a NpdeSimData object containing the information relative to the simulated data</li>
+<li>: a NpdeRes object containing the results</li>
+<li>: a list of options used in the computations</li>
+<li>: a list of graphical preferences</li>
+</ol>
+<p>The first three elements are S4 objects also, with their own class and own methods, while the last two elements are R lists. More information on how to handle these objects and which methods have been defined for them can be found in {sec:npde.methods}.</p>
+</div>
+<div id="tests-1" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Tests</h3>
+<p>The package automatically outputs the results of the statistical tests comparing the distribution of the <strong>npde</strong> to the theoretical distribution N(0,1). These tests can be obtained using the method <strong>gof.test()</strong> applied to the object:</p>
+<pre><code>gof.test(y)</code></pre>
+<div id="application-to-the-theophylline-example-2" class="section level4" number="5.4.2.1">
+<h4><span class="header-section-number">5.4.2.1</span> Application to the theophylline example</h4>
+<p>This yields the following output for theophylline:</p>
+<pre><code>---------------------------------------------
+Distribution of npde :
+      nb of obs: 120 
+           mean= 0.0668   (SE= 0.095 )
+       variance= 1.074   (SE= 0.14 )
+       skewness= 0.511 
+       kurtosis= 0.2912 
+---------------------------------------------
+Statistical tests (adjusted p-values):
+  t-test                : 1
+  Fisher variance test  : 1
+  SW test of normality  : 0.00819 **
+  Global test           : 0.00819 **
+---
+Signif. codes: &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 
+---------------------------------------------</code></pre>
+<p>Here, the four p-values are redirected to the R object <strong>y</strong>. With the option <strong>which=“pd”</strong> (resp. ‘pd’), the user can select tests for the <span class="math inline">\(\mathrm{pd}\)</span> (resp. <span class="math inline">\(\mathrm{npd}\)</span>) instead of the <span class="math inline">\(\mathrm{npde}\)</span>, but the tests will only be strictly valid when there is only one observation per subject, otherwise the test incurrs a significant increase in type I error (<span class="citation"><a href="#ref-MentrePDE" role="doc-biblioref">Mentré and Escolano</a> (<a href="#ref-MentrePDE" role="doc-biblioref">2006</a>)</span>, <span class="citation"><a href="#ref-Brendel06" role="doc-biblioref">Brendel et al.</a> (<a href="#ref-Brendel06" role="doc-biblioref">2006</a>)</span>).</p>
+</div>
+<div id="gof.test-method" class="section level4" number="5.4.2.2">
+<h4><span class="header-section-number">5.4.2.2</span> gof.test method</h4>
+<p>A <strong>gof.test()</strong> method has also been defined for numeric vectors, in which case it will compute the first moments and perform the four tests. The statistical diagnostics can therefore be regenerated easily without running the computation all over again, provided the results have been saved. In the example above, the <span class="math inline">\(\mathrm{npde}\)</span> were saved to a file named <strong>theophylline.npde</strong>. The following code reads the results from this file and computes the same tests as above:</p>
+<pre><code>dat&lt;-read.table(&quot;theophylline.npde&quot;,header=T)
+y&lt;-gof.test(dat$npde) </code></pre>
+</div>
+</div>
+<div id="default-graphs" class="section level3" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Default graphs</h3>
+<!-- \label{sec:graphics} -->
+<p><strong>Important change from previous version</strong> following the white paper by the ISoP group (<span class="citation"><a href="#ref-Nguyen17" role="doc-biblioref">T. Nguyen et al.</a> (<a href="#ref-Nguyen17" role="doc-biblioref">2017</a>)</span>), the default plots now produced by the npde package use <strong>npd</strong> instead of <strong>npde</strong>, while the <strong>npde</strong> are used as default for the statistical tests.
+Four graphs are produced by default:</p>
+<ol style="list-style-type: decimal">
+<li><p>a quantile-quantile plot: plot of the <span class="math inline">\(\mathrm{npd}\)</span> versus the corresponding quantiles of a normal distribution</p>
+<ul>
+<li>the line <span class="math inline">\(y=x\)</span> is also drawn</li>
+</ul></li>
+<li><p>a histogram of the <span class="math inline">\(\mathrm{npd}\)</span></p>
+<ul>
+<li>the shape of the normal distribution <span class="math inline">\(\mathcal{N}(0,1)\)</span> is also shown</li>
+</ul></li>
+<li><p>a plot of the <span class="math inline">\(\mathrm{npd}\)</span> versus the independent variable X</p></li>
+<li><p>a plot of the <span class="math inline">\(\mathrm{npd}\)</span> versus ypred</p>
+<ul>
+<li>for these last two graphs, we plot the lines corresponding to <span class="math inline">\(y=0\)</span> and to the critical values 5% and 95% (delimiting the 90% confidence interval in which we expect to find the bulk of the <span class="math inline">\(\mathrm{npde}\)</span>).</li>
+</ul></li>
+</ol>
+<p>The default graphs now include (approximated) prediction intervals (obtained by simulating from the theoretical <span class="math inline">\(\mathcal{N}(0,1)\)</span> distribution, see section {sec:graphmethods}); for compatibility with the behaviour of version 1.2, the option <strong>bands=FALSE</strong> can be used to suppress plotting the prediction intervals.</p>
+<p>These graphs are designed as diagnostics for the <span class="math inline">\(\mathrm{npd}\)</span> and the <span class="math inline">\(\mathrm{npde}\)</span>; a function providing similar graphs for <span class="math inline">\(\mathrm{pd}\)</span>, for which the reference distribution is uniform instead of normal, is <strong>plotpd</strong>.</p>
+<div id="plots-for-the-theophylline-example" class="section level4" number="5.4.3.1">
+<h4><span class="header-section-number">5.4.3.1</span> Plots for the theophylline example</h4>
+<p><!-- in figure \@ref(fig:theoplots) -->
+The graphs below are plotted in a window
+<!-- , and saved to a file --></p>
+<pre><code>## Selected plot type: default 
+## Method used for binning: by quantiles on X , dividing into the following 10 intervals
+##    Interval      Centered.On Nb.obs
+## 1  (-0.75,0.418]  0.28       12    
+## 2  (0.418,0.854]  0.57       12    
+## 3  (0.854,1.48]   1.03       12    
+## 4  (1.48,2.76]    2.02       12    
+## 5  (2.76,4.41]    3.56       12    
+## 6  (4.41,6.1]     5.04       12    
+## 7  (6.1,8.09]     7.05       12    
+## 8  (8.09,10.7]    9.06       12    
+## 9  (10.7,19.5]   12.03       12    
+## 10 (19.5,24.6]   24.20       12    
+## Method used for binning: by quantiles on X , dividing into the following 10 intervals
+##    Interval     Centered.On Nb.obs
+## 1  (-0.11,2.05] 1.4         12    
+## 2  (2.05,3.56]  3.2         12    
+## 3  (3.56,4.29]  4.0         12    
+## 4  (4.29,5.07]  4.8         12    
+## 5  (5.07,5.57]  5.3         12    
+## 6  (5.57,6.25]  5.9         12    
+## 7  (6.25,6.95]  6.6         12    
+## 8  (6.95,7.47]  7.2         12    
+## 9  (7.47,8.22]  7.8         12    
+## 10 (8.22,10]    9.0         12</code></pre>
+<p><img src="npde_bookdown_files/figure-html/theoPlots-1.png" width="672" /></p>
+<p>The quantile-quantile plot and the histogram show a group of values corresponding to <span class="math inline">\(\mathrm{npde}=2.33\)</span>, corresponding to predicted distribution errors set at 0.99, and the prediction bands shows the corresponding departure graphically on the two upper graphs. This indicates observations larger than all the 100 corresponding simulated values. This often happens when <span class="math inline">\(K\)</span> is small as is the case in this example (K=100), and can explain the departure from normality seen in the tests. However, even increasing the number of simulations to 1000 or 2000 does not in this example yield a non-significant test, meaning the model does not describe the data adequately (results not shown).</p>
+<p>In the scatterplots (lower two graphs), the pink area is the prediction interval for the median, while the blue areas shows the prediction areas for the boundaries of the 95% prediction intervals. The prediction bands are very large because of the small number of simulations so that model misspecification is not so obvious. By default, the binning on the X-axis uses bins of equal size (number of observations), and the mean of the X values in the bin is used to plot the bin, which explains why the bins do not extend to the largest X-value especially in the lower right plot, but this default behaviour can be tuned in the options.</p>
+<!-- Figure \@ref(fig:theop-plot-vpc)  -->
+<p>The graph below shows the VPC, where the prediction bands are again very large because of the low number of simulations.</p>
+<pre><code>## Selected plot type: vpc 
+## Plotting VPC
+## Method used for binning: by quantiles on X , dividing into the following 10 intervals
+##    Interval      Centered.On Nb.obs
+## 1  (-0.75,0.418]  0.28       12    
+## 2  (0.418,0.854]  0.57       12    
+## 3  (0.854,1.48]   1.03       12    
+## 4  (1.48,2.76]    2.02       12    
+## 5  (2.76,4.41]    3.56       12    
+## 6  (4.41,6.1]     5.04       12    
+## 7  (6.1,8.09]     7.05       12    
+## 8  (8.09,10.7]    9.06       12    
+## 9  (10.7,19.5]   12.03       12    
+## 10 (19.5,24.6]   24.20       12</code></pre>
+<p><img src="npde_bookdown_files/figure-html/theop-plot-vpc-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-NONMEM" class="csl-entry">
+Beal, SL, LB Sheiner, AJ Boeckmann, and RJ Bauer. 1989-2011. <em>NONMEM Version 7.2</em>. Ellicott City: Icon Development Solutions.
+</div>
+<div id="ref-Brendel06" class="csl-entry">
+Brendel, Karl, Emmanuelle Comets, Céline Laffont, Christian Laveille, and France Mentré. 2006. <span>“Metrics for External Model Evaluation with an Application to the Population Pharmacokinetics of Gliclazide.”</span> <em>Pharmaceutical Research</em> 23: 2036–49.
+</div>
+<div id="ref-Brendel10" class="csl-entry">
+Brendel, Karl, Emmanuelle Comets, Céline Laffont, and France Mentré. 2010. <span>“Evaluation of Different Tests Based on Observations for External Model Evaluation of Population Analyses.”</span> <em>Journal of Pharmacokinetics and Pharmacodynamics</em> 37: 49–65.
+</div>
+<div id="ref-Comets10" class="csl-entry">
+Emmanuelle, Comets, Brendel Karl, and France Mentré. 2010. <span>“Model Evaluation in Nonlinear Mixed Effect Models, with Applications to Pharmacokinetics.”</span> <em>Journal de La Société Française de Statistique</em> 151: 106–28.
+</div>
+<div id="ref-MONOLIX" class="csl-entry">
+Lavielle, Marc. 2005. <em>MONOLIX (MOdèles NOn LInéaires à Effets miXtes)</em>. Orsay, France: <span>MONOLIX</span> group. <a href="http://www.monolix.org">http://www.monolix.org</a>.
+</div>
+<div id="ref-MentrePDE" class="csl-entry">
+Mentré, France, and Sylvie Escolano. 2006. <span>“Prediction Discrepancies for the Evaluation of Nonlinear Mixed-Effects Models.”</span> <em>Journal of Pharmacokinetics and Pharmacodynamics</em> 33: 345–67.
+</div>
+<div id="ref-Nguyen17" class="csl-entry">
+Nguyen, THT, M-S Mouksassi, N Holford, N Al-Huniti, I Freedman, AC Hooker, J John, et al. 2017. <span>“Model Evaluation of Continuous Data Pharmacometric Models: Metrics and Graphics.”</span> <em>CPT Pharmacometrics Syst Pharmacol</em> 6 (2): 87–109.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="graphmethods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["npde_bookdown.pdf", "npde_bookdown.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

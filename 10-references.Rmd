@@ -1,0 +1,12 @@
+# References {#references}
+
+<!-- References from the manual biblio_fullname.bib (check formatting, output, doublons) -->
+<!-- `r if (knitr::is_html_output()) ' -->
+<!-- # References {-} -->
+<!-- '` -->
+
+\markboth{References}{References} 
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+\setlength{\parskip}{8pt}

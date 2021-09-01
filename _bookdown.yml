@@ -1,0 +1,13 @@
+book_filename: "npde_bookdown.Rmd"
+delete_merged_file: true
+output_dir: "docs"
+language:
+  ui:
+    chapter_name: ""
+
+
+ #git pull
+ #git status
+ #git add .
+ #git commit -m"adding some content"
+ #git push

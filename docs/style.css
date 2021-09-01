@@ -1,0 +1,26 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+
+.Rchunk {
+  background-color: rgb(211,211,211) !important;
+  font-weight: bolder;
+  border: 0.5px solid rgb(160, 160, 160) !important;
+  color: blue !important;
+}
+
+p {
+  text-align: justify;
+}
